@@ -1,2 +1,2 @@
 # yakkasaroy-menu
-Меню кофейни Яккасарой Family
+Меню ресторана Яккасарой Family
