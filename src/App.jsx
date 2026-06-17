@@ -964,7 +964,7 @@ html{scroll-behavior:smooth;}
   background:linear-gradient(180deg,rgba(255,255,255,0.22),rgba(255,255,255,0.08));border:1px solid rgba(255,255,255,0.45);color:var(--ink);box-shadow:inset 0 2px 2px rgba(255,255,255,0.45),inset 0 -2px 6px rgba(0,0,0,0.06),0 4px 12px rgba(0,0,0,0.18);backdrop-filter:blur(12px) saturate(150%);-webkit-backdrop-filter:blur(12px) saturate(150%);transition:.18s;}
 .stepBtn:hover{filter:brightness(1.12);}
 .stepBtn:active{transform:scale(.9);}
-.stepBtn.add{background:var(--grad);color:#15151b;border:1px solid rgba(255,255,255,0.5);box-shadow:inset 0 2px 3px rgba(255,255,255,0.55),inset 0 -3px 6px rgba(120,80,0,0.4),0 6px 16px -2px rgba(244,196,48,.5),0 2px 6px rgba(0,0,0,0.15);}
+.stepBtn.add{background:linear-gradient(180deg,#5be88f 0%,#2fcf73 45%,#18b85f 100%);color:#fff;border:1px solid rgba(255,255,255,0.5);box-shadow:inset 0 2px 3px rgba(255,255,255,0.55),inset 0 -3px 6px rgba(0,90,40,0.4),0 6px 16px -2px rgba(40,200,110,0.55),0 2px 6px rgba(0,0,0,0.15);}
 .stepBtn.add:hover{filter:brightness(1.06);}
 .stepNum{min-width:22px;text-align:center;font-weight:700;font-size:15px;color:var(--ink);}
 .dishPhoto{width:100%;height:100%;object-fit:cover;object-position:center 38%;display:block;}
