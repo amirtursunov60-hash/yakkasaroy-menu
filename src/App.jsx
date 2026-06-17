@@ -1045,7 +1045,7 @@ html{scroll-behavior:smooth;}
 .bowlGloss{position:absolute;top:0;left:10%;width:30%;height:40%;
   background:linear-gradient(120deg,rgba(255,255,255,.4),transparent);border-radius:50%;}
 .cartBar{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(120px);
-  width:min(480px,calc(100% - 32px));z-index:40;background:var(--grad);color:#15151b;border-radius:18px;border:1px solid rgba(255,255,255,0.45);
+  width:min(480px,calc(100% - 32px));z-index:40;background:var(--grad);color:#15151b;border-radius:18px;border:none;
   padding:16px 20px;display:flex;align-items:center;gap:14px;cursor:pointer;
   box-shadow:inset 0 2px 3px rgba(255,255,255,0.65),inset 0 -3px 7px rgba(150,100,0,0.3),0 14px 36px -10px rgba(244,196,48,.5),0 4px 12px rgba(0,0,0,0.22);opacity:0;
   transition:transform .45s cubic-bezier(.2,1.2,.3,1),opacity .35s;}
@@ -1096,7 +1096,7 @@ html{scroll-behavior:smooth;}
 .addon.on .addonCheck{background:var(--blue);color:#fff;}
 .sheetBar{padding:14px 20px calc(14px + env(safe-area-inset-bottom));border-top:1px solid var(--line);background:var(--bg);}
 .addBig{width:100%;display:flex;align-items:center;justify-content:space-between;padding:17px 22px;border:none;
-  border-radius:16px;background:var(--grad);color:#15151b;border:1px solid rgba(255,255,255,0.45);box-shadow:inset 0 2px 3px rgba(255,255,255,0.65),inset 0 -3px 6px rgba(150,100,0,0.32),0 8px 22px rgba(244,196,48,.5),0 2px 6px rgba(0,0,0,0.18);font:inherit;font-weight:700;font-size:16px;cursor:pointer;transition:.2s;}
+  border-radius:16px;background:var(--grad);color:#15151b;border:none;box-shadow:inset 0 2px 3px rgba(255,255,255,0.65),inset 0 -3px 6px rgba(150,100,0,0.32),0 8px 22px rgba(244,196,48,.5),0 2px 6px rgba(0,0,0,0.18);font:inherit;font-weight:700;font-size:16px;cursor:pointer;transition:.2s;}
 .addBig:hover{filter:brightness(1.06);}
 .addBig:active{transform:translateY(1px) scale(.98);box-shadow:inset 0 3px 8px rgba(0,0,0,.22),0 0 24px rgba(244,196,48,.6);}
 .addBig:disabled{opacity:.4;cursor:default;}
