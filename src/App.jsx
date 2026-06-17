@@ -238,6 +238,14 @@ const MENU = [
 ];
 
 const TABS = ["кофе", "айс напитки", "еда", "для дома"];
+const TAB_LABEL = { "кофе": "Кофе", "айс напитки": "Айс напитки", "еда": "Еда", "для дома": "Для дома" };
+function TabIcon({ t }) {
+  const p = { width: 16, height: 16, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round" };
+  if (t === "кофе") return (<svg {...p}><path d="M5 9h12v4.5a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V9z"/><path d="M17 10h1.5a2 2 0 0 1 0 4H17"/><path d="M8 3c-.5 1 .5 2 0 3M11.5 3c-.5 1 .5 2 0 3"/></svg>);
+  if (t === "айс напитки") return (<svg {...p}><path d="M7 7h10l-1.2 12.2a1.8 1.8 0 0 1-1.8 1.6H10a1.8 1.8 0 0 1-1.8-1.6L7 7z"/><path d="M6 7h12"/><path d="M15 3l-2.6 6"/></svg>);
+  if (t === "еда") return (<svg {...p}><path d="M3.5 10.5h17"/><path d="M5 10.5a7 7 0 0 0 14 0"/><path d="M8 6.5c0-1 1-1.2 1-2.2M12 6.5c0-1 1-1.2 1-2.2M16 6.5c0-1 1-1.2 1-2.2"/></svg>);
+  return (<svg {...p}><path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/></svg>);
+}
 const fmt = (n) => n.toLocaleString("ru-RU");
 
 /* ============================================================
@@ -601,7 +609,7 @@ function Pager({ tabs, active, setActive, onOpen, cartCount, quickAdd, quickRemo
     <div className="pager">
       <nav className="tabs stuck" ref={tabsRef}>
         {tabs.map((t, i) => (
-          <button key={t} className={"tab " + (dotTab === t ? "on" : "")} onClick={() => go(i)}>{t}</button>
+          <button key={t} className={"tab " + (dotTab === t ? "on" : "")} onClick={() => go(i)}><TabIcon t={t} /><span>{TAB_LABEL[t] || t}</span></button>
         ))}
       </nav>
 
@@ -921,10 +929,10 @@ html{scroll-behavior:smooth;}
   background:rgba(11,31,58,.55);backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);}
 .tabs::-webkit-scrollbar{display:none;}
 .stuck{background:rgba(11,31,58,.7);border-bottom:1px solid var(--line);}
-.tab{flex:0 0 auto;padding:9px 18px;border-radius:100px;border:1px solid transparent;background:transparent;
-  color:var(--mut);font:inherit;font-weight:600;font-size:14px;cursor:pointer;transition:.25s;}
+.tab{flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:100px;border:1px solid transparent;background:transparent;
+  color:var(--mut);font:inherit;font-weight:600;font-size:13px;cursor:pointer;transition:.25s;}
 .tab:hover{color:var(--ink);}
-.tab.on{background:rgba(255,255,255,0.20);color:#fff;border-color:rgba(255,255,255,0.55);box-shadow:inset 0 1px 0 rgba(255,255,255,0.6),0 4px 16px -4px rgba(255,255,255,.35);font-weight:700;}
+.tab.on{background:rgba(255,255,255,0.20);color:#fff;border-color:rgba(255,255,255,0.55);box-shadow:inset 0 1px 0 rgba(255,255,255,0.6),0 4px 16px -4px rgba(255,255,255,.35);}
 .menu{padding:6px 16px 0;}
 .section{margin-bottom:28px;}
 .secTitle{font-family:inherit;letter-spacing:-0.02em;font-weight:700;font-size:19px;margin:16px 4px 12px;text-transform:lowercase;}
