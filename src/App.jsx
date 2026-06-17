@@ -1048,8 +1048,8 @@ html{scroll-behavior:smooth;}
 .cartBar{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(120px);
   width:min(480px,calc(100% - 32px));z-index:40;background:var(--grad);color:#15151b;border-radius:18px;border:1px solid rgba(255,255,255,0.45);
   padding:16px 20px;display:flex;align-items:center;gap:14px;cursor:pointer;
-  box-shadow:inset 0 2px 3px rgba(255,255,255,0.6),0 16px 40px -10px rgba(244,196,48,.55);opacity:0;
-  transition:transform .45s cubic-bezier(.2,1.2,.3,1),opacity .35s;}
+  box-shadow:inset 0 2px 3px rgba(255,255,255,0.65),inset 0 -3px 7px rgba(150,100,0,0.3),0 14px 36px -10px rgba(244,196,48,.5),0 4px 12px rgba(0,0,0,0.22);opacity:0;
+  transition:transform .45s cubic-bezier(.2,1.2,.3,1),opacity .35s;animation:glowPulse 2.6s ease-in-out infinite;}
 .cartBar.show{transform:translateX(-50%) translateY(0);opacity:1;}
 .cartBar.bump{animation:bumpA .4s ease;}
 @keyframes bumpA{0%,100%{transform:translateX(-50%) translateY(0) scale(1)}40%{transform:translateX(-50%) translateY(0) scale(1.04)}}
@@ -1096,8 +1096,8 @@ html{scroll-behavior:smooth;}
 .addon.on .addonCheck{background:var(--blue);color:#fff;}
 .sheetBar{padding:14px 20px calc(14px + env(safe-area-inset-bottom));border-top:1px solid var(--line);background:var(--bg);}
 .addBig{width:100%;display:flex;align-items:center;justify-content:space-between;padding:17px 22px;border:none;
-  border-radius:16px;background:var(--grad);color:#15151b;border:1px solid rgba(255,255,255,0.45);box-shadow:inset 0 2px 3px rgba(255,255,255,0.6),0 8px 22px rgba(244,196,48,.5);font:inherit;font-weight:700;font-size:16px;cursor:pointer;transition:.2s;}
-.addBig:hover{filter:brightness(1.06);}
+  border-radius:16px;background:var(--grad);color:#15151b;border:1px solid rgba(255,255,255,0.45);box-shadow:inset 0 2px 3px rgba(255,255,255,0.65),inset 0 -3px 6px rgba(150,100,0,0.32),0 8px 22px rgba(244,196,48,.5),0 2px 6px rgba(0,0,0,0.18);font:inherit;font-weight:700;font-size:16px;cursor:pointer;transition:.2s;animation:glowPulse 2.6s ease-in-out infinite;}
+.addBig:hover{transform:translateY(-1px);}
 .addBig:active{transform:scale(.98);}
 .addBig:disabled{opacity:.4;cursor:default;}
 .addBig b{font-family:inherit;letter-spacing:-0.02em;font-size:17px;}
@@ -1217,11 +1217,14 @@ html{scroll-behavior:smooth;}
 /* кнопка/счётчик в витрине-герое */
 .heroAddBtn{margin-top:14px;display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border:none;
   border-radius:100px;background:var(--accent);color:#15151b;font:inherit;font-weight:700;font-size:15px;
-  cursor:pointer;transition:.18s;box-shadow:0 8px 24px -6px rgba(244,196,48,.55);}
+  cursor:pointer;transition:.18s;box-shadow:inset 0 2px 3px rgba(255,255,255,0.6),inset 0 -3px 6px rgba(150,100,0,0.3),0 8px 24px -6px rgba(244,196,48,.55);animation:glowPulse 2.6s ease-in-out infinite;}
 .heroAddBtn:hover{transform:scale(1.05);}
 .heroAddBtn:active{transform:scale(.96);}
 .heroStepper{margin-top:14px;background:rgba(16,32,52,.7);backdrop-filter:blur(10px);border-color:rgba(255,255,255,.18);}
 .heroStepper .stepNum{font-size:17px;min-width:26px;}
 .heroStepper .stepBtn{width:38px;height:38px;}
 .heroShowPrice i{font-style:normal;color:var(--mut);font-size:14px;}
+
+@keyframes glowPulse{0%,100%{filter:drop-shadow(0 3px 9px rgba(244,196,48,.35));}50%{filter:drop-shadow(0 5px 18px rgba(244,196,48,.72));}}
+@media (prefers-reduced-motion:reduce){.cartBar,.addBig,.heroAddBtn{animation:none!important;}}
 `}</style>);}
