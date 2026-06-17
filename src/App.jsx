@@ -924,7 +924,7 @@ html{scroll-behavior:smooth;}
 .tab{flex:0 0 auto;padding:9px 18px;border-radius:100px;border:1px solid transparent;background:transparent;
   color:var(--mut);font:inherit;font-weight:600;font-size:14px;cursor:pointer;transition:.25s;}
 .tab:hover{color:var(--ink);}
-.tab.on{background:rgba(244,196,48,0.14);color:var(--accent);border-color:rgba(244,196,48,0.5);box-shadow:inset 0 1px 0 var(--glassHi),0 4px 14px -4px rgba(244,196,48,.5);font-weight:700;}
+.tab.on{background:rgba(255,255,255,0.20);color:#fff;border-color:rgba(255,255,255,0.55);box-shadow:inset 0 1px 0 rgba(255,255,255,0.6),0 4px 16px -4px rgba(255,255,255,.35);font-weight:700;}
 .menu{padding:6px 16px 0;}
 .section{margin-bottom:28px;}
 .secTitle{font-family:inherit;letter-spacing:-0.02em;font-weight:700;font-size:19px;margin:16px 4px 12px;text-transform:lowercase;}
