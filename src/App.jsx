@@ -855,8 +855,7 @@ export default function App() {
         <div className="heroGlow"/>
         <div className="brandRow">
           <div className="logo">
-            <svg viewBox="0 0 40 40" width="38" height="38">
-              <circle cx="20" cy="20" r="19" fill="#f4c430"/>
+            <svg viewBox="0 0 40 40" width="24" height="24">
               <path d="M26 12a10 10 0 1 0 0 16 8 8 0 1 1 0-16z" fill="#15151b"/>
             </svg>
           </div>
@@ -902,13 +901,13 @@ html{scroll-behavior:smooth;}
   min-height:100vh;max-width:540px;margin:0 auto;position:relative;overflow-x:clip;overflow-y:visible;padding-bottom:120px;
   touch-action:pan-x pan-y;
 }
-.hero{position:relative;padding:18px 22px 10px;overflow:hidden;}
+.hero{position:relative;padding:14px 18px 12px;overflow:hidden;border-bottom:1px solid var(--glassBorder);background:rgba(11,31,58,0.35);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);}
 .heroGlow{position:absolute;top:-130px;right:-90px;width:320px;height:320px;
   background:radial-gradient(circle,rgba(244,196,48,.26),transparent 60%);filter:blur(18px);
   animation:floatGlow 9s ease-in-out infinite;}
 @keyframes floatGlow{0%,100%{transform:translate(0,0)}50%{transform:translate(-28px,28px)}}
 .brandRow{display:flex;align-items:center;gap:12px;position:relative;z-index:2;}
-.logo{filter:drop-shadow(0 4px 14px rgba(244,196,48,.4));animation:pop .7s cubic-bezier(.2,1.4,.4,1) both;}
+.logo{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;flex:0 0 auto;background:linear-gradient(135deg,#ffd95e,#e0ab10);box-shadow:0 4px 14px rgba(244,196,48,.5),inset 0 1px 0 rgba(255,255,255,0.45);animation:pop .7s cubic-bezier(.2,1.4,.4,1) both;}
 .brandTxt{display:flex;flex-direction:column;line-height:1.25;}
 .brandTxt strong{font-family:inherit;letter-spacing:-0.02em;font-weight:800;font-size:15px;letter-spacing:.5px;}
 .brandTxt span{font-size:11.5px;color:var(--mut);}
