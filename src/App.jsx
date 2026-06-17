@@ -893,7 +893,7 @@ html{scroll-behavior:smooth;}
   --bg:#0d1f33;--bg2:rgba(255,255,255,0.06);--card:rgba(28,34,44,0.55);--ink:#f5f8fa;--mut:#a8b2bd;
   --accent:#f4c430;--accent2:#e0ab10;--blue:#5b8def;--line:rgba(255,255,255,0.10);
   --glassBorder:rgba(255,255,255,0.14);--glassHi:rgba(255,255,255,0.22);--solid:#141a24;
-  --grad:linear-gradient(180deg,#ffd95e 0%,#f4c430 45%,#e0ab10 100%);
+  --grad:linear-gradient(180deg,rgba(255,255,255,0.6) 0%,rgba(255,255,255,0.14) 46%,rgba(255,255,255,0) 50%,rgba(255,255,255,0.05) 100%),linear-gradient(180deg,#ffd95e 0%,#f4c430 46%,#e0ab10 100%);
   background:linear-gradient(160deg,#0b1f3a 0%,#0e2a44 22%,#102a2e 50%,#0d1f33 78%,#0a1526 100%);
   background-attachment:fixed;
   color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text','Inter',system-ui,sans-serif;
@@ -955,7 +955,7 @@ html{scroll-behavior:smooth;}
 .chev{color:var(--mut);}
 /* быстрый плюсик и счётчик в карточке */
 .quickPlus{width:40px;height:40px;border-radius:13px;border:none;cursor:pointer;flex:0 0 auto;
-  background:var(--accent);color:#15151b;display:grid;place-items:center;transition:.18s;}
+  background:var(--grad);color:#15151b;display:grid;place-items:center;transition:.18s;}
 .quickPlus:hover{transform:scale(1.08);}
 .quickPlus:active{transform:scale(.92);}
 .stepper{display:flex;align-items:center;gap:4px;background:var(--bg2);border:1px solid var(--line);
@@ -964,7 +964,7 @@ html{scroll-behavior:smooth;}
   background:transparent;color:var(--ink);transition:.18s;}
 .stepBtn:hover{background:#2a2a32;}
 .stepBtn:active{transform:scale(.9);}
-.stepBtn.add{background:#3ba35b;color:#fff;}
+.stepBtn.add{background:linear-gradient(180deg,rgba(255,255,255,0.5) 0%,rgba(255,255,255,0.1) 48%,rgba(255,255,255,0) 50%),linear-gradient(180deg,#4cc46e 0%,#2f9e44 100%);color:#fff;}
 .stepBtn.add:hover{background:#349550;}
 .stepNum{min-width:22px;text-align:center;font-weight:700;font-size:15px;color:var(--ink);}
 .dishPhoto{width:100%;height:100%;object-fit:cover;object-position:center 38%;display:block;}
@@ -1066,7 +1066,7 @@ html{scroll-behavior:smooth;}
   border:1px solid var(--line);border-bottom:none;}
 .sheetIn .sheetCard{transform:translateX(-50%) translateY(0);}
 .closeBtn{position:absolute;top:14px;right:14px;z-index:5;width:40px;height:40px;border-radius:50%;
-  border:none;background:rgba(40,40,48,.85);backdrop-filter:blur(6px);color:var(--ink);display:grid;place-items:center;cursor:pointer;transition:.2s;}
+  border:none;background:linear-gradient(180deg,rgba(255,255,255,.24),rgba(255,255,255,0) 50%),rgba(40,40,48,.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:var(--ink);display:grid;place-items:center;cursor:pointer;transition:.2s;}
 .closeBtn:hover{background:rgba(60,60,70,.95);transform:scale(1.06);}
 .sheetScroll{overflow-y:auto;padding:0 20px;}
 .detailMedia{position:relative;height:240px;margin:0 -20px;overflow:hidden;
@@ -1113,7 +1113,7 @@ html{scroll-behavior:smooth;}
 .coInput{flex:1;background:var(--bg2);border:1px solid var(--line);border-radius:13px;padding:13px 15px;
   color:var(--ink);font:inherit;font-size:16px;outline:none;}
 .coInput:focus{border-color:var(--accent);}
-.coMiniBtn{border:none;background:var(--accent);color:#15151b;font:inherit;font-weight:700;padding:0 18px;border-radius:13px;cursor:pointer;}
+.coMiniBtn{border:none;background:var(--grad);color:#15151b;font:inherit;font-weight:700;padding:0 18px;border-radius:13px;cursor:pointer;}
 .payOpt{width:100%;display:flex;align-items:center;gap:13px;background:var(--bg2);border:1px solid var(--line);
   border-radius:15px;padding:14px 16px;margin-bottom:10px;cursor:pointer;transition:.18s;text-align:left;}
 .payOpt:hover{border-color:#3a3a46;}
@@ -1216,7 +1216,7 @@ html{scroll-behavior:smooth;}
 .heroShowPrice{font-family:inherit;letter-spacing:-0.02em;font-weight:700;font-size:20px;color:var(--ink);}
 /* кнопка/счётчик в витрине-герое */
 .heroAddBtn{margin-top:14px;display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border:none;
-  border-radius:100px;background:var(--accent);color:#15151b;font:inherit;font-weight:700;font-size:15px;
+  border-radius:100px;background:var(--grad);color:#15151b;font:inherit;font-weight:700;font-size:15px;
   cursor:pointer;transition:.18s;box-shadow:inset 0 2px 3px rgba(255,255,255,0.6),inset 0 -3px 6px rgba(150,100,0,0.3),0 8px 24px -6px rgba(244,196,48,.55);}
 .heroAddBtn:hover{transform:scale(1.05);}
 .heroAddBtn:active{transform:scale(.96);box-shadow:inset 0 3px 8px rgba(0,0,0,.22),0 0 24px rgba(244,196,48,.6);}
