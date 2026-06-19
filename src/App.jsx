@@ -943,6 +943,28 @@ html{scroll-behavior:smooth;}
 .hero{position:relative;padding:14px 18px 12px;overflow:hidden;border-bottom:1px solid var(--glassBorder);background:rgba(11,31,58,0.35);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);}
 .app[data-theme="light"] .hero{background:rgba(255,255,255,0.45);}
 .app[data-theme="dim"] .hero{background:rgba(20,30,40,0.45);}
+/* ===== light: переопределяем захардкоженные тёмные подложки витрины и арта ===== */
+.app[data-theme="light"] .stuck{background:rgba(255,255,255,0.7);}
+.app[data-theme="light"] .tabs{background:rgba(255,255,255,0.55);}
+.app[data-theme="light"] .media{background:radial-gradient(circle at 50% 32%,#ffffff,#e6ebf2);}
+.app[data-theme="light"] .coded{background:radial-gradient(circle at 50% 30%,#fbfcfe,#e3e9f1);}
+.app[data-theme="light"] .detailMedia{background:radial-gradient(circle at 50% 35%,#ffffff,#e6ebf2);}
+.app[data-theme="light"] .detailMedia.coded{background:radial-gradient(circle at 50% 32%,#fbfcfe,#e3e9f1);}
+.app[data-theme="light"] .cartThumb{background:radial-gradient(circle at 50% 30%,#fbfcfe,#e3e9f1);}
+.app[data-theme="light"] .heroShow{background:radial-gradient(120% 80% at 50% 18%,#fdfdff,#dfe6ef 70%);}
+.app[data-theme="light"] .heroShowShade{background:linear-gradient(180deg,rgba(244,246,249,0) 0%,rgba(244,246,249,0) 52%,rgba(244,246,249,.7) 84%,var(--bg) 100%);}
+.app[data-theme="light"] .gshadow,.app[data-theme="light"] .bshadow{background:radial-gradient(ellipse,rgba(40,55,75,.18),transparent 70%);}
+.app[data-theme="light"] .dots{background:rgba(255,255,255,0.7);}
+.app[data-theme="light"] .dot{background:#c2ccd8;}
+.app[data-theme="light"] .profile:hover,.app[data-theme="light"] .addon:hover,.app[data-theme="light"] .payOpt:hover,.app[data-theme="light"] .subChip:hover{border-color:rgba(13,31,51,0.25);}
+.app[data-theme="light"] .sheetCard{background:rgba(248,250,253,0.9);}
+.app[data-theme="light"] .sheetBar{background:rgba(248,250,253,0.75);}
+.app[data-theme="light"] .closeBtn{background:linear-gradient(180deg,rgba(255,255,255,.7),rgba(255,255,255,0) 50%),rgba(225,231,239,.85);border-color:rgba(13,31,51,0.18);}
+.app[data-theme="light"] .closeBtn:hover{background:rgba(225,231,239,1);}
+/* ===== dim: чуть мягче подложки витрины/шторки ===== */
+.app[data-theme="dim"] .heroShow{background:radial-gradient(120% 80% at 50% 18%,#222d39,#10161d 70%);}
+.app[data-theme="dim"] .sheetCard{background:rgba(22,32,43,0.88);}
+.app[data-theme="dim"] .sheetBar{background:rgba(22,32,43,0.65);}
 .heroGlow{position:absolute;top:-130px;right:-90px;width:320px;height:320px;
   background:radial-gradient(circle,rgba(244,196,48,.26),transparent 60%);filter:blur(18px);
   animation:floatGlow 9s ease-in-out infinite;}
