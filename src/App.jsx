@@ -509,6 +509,7 @@ function tabsAfter(tabs, current) {
 function Pager({ tabs, active, setActive, onOpen, cartCount, quickAdd, quickRemove, quickCount }) {
   const idx = Math.max(0, tabs.indexOf(active));
   const [dotTab, setDotTab] = useState(active);   // отдельная подсветка точек (не двигает ленту)
+  const [glide, setGlide] = useState({ left: 0, width: 0, ready: false }); // liquid-glass пилюля под активной вкладкой
   const trackRef = useRef(null);
   const tabsRef = useRef(null);
   const lockRef = useRef(false);
@@ -591,8 +592,23 @@ function Pager({ tabs, active, setActive, onOpen, cartCount, quickAdd, quickRemo
     const el = tabsRef.current;
     if (!el) return;
     const di = Math.max(0, tabs.indexOf(dotTab));
-    const btn = el.children[di];
+    const btn = el.querySelectorAll(".tab")[di];
     if (btn) el.scrollTo({ left: btn.offsetLeft - el.clientWidth / 2 + btn.clientWidth / 2, behavior: "smooth" });
+  }, [dotTab, tabs]);
+
+  // liquid-glass пилюля «переезжает» под активную вкладку (ширины вкладок разные)
+  useEffect(() => {
+    const el = tabsRef.current;
+    if (!el) return;
+    const measure = () => {
+      const di = Math.max(0, tabs.indexOf(dotTab));
+      const btn = el.querySelectorAll(".tab")[di];
+      if (btn) setGlide({ left: btn.offsetLeft, width: btn.offsetWidth, ready: true });
+    };
+    measure();
+    const t = setTimeout(measure, 130);            // после подгрузки шрифта Inter
+    window.addEventListener("resize", measure);
+    return () => { clearTimeout(t); window.removeEventListener("resize", measure); };
   }, [dotTab, tabs]);
 
   // если active сменили извне (таб/точка) — двигаем ленту
@@ -609,6 +625,11 @@ function Pager({ tabs, active, setActive, onOpen, cartCount, quickAdd, quickRemo
   return (
     <div className="pager">
       <nav className="tabs stuck" ref={tabsRef}>
+        <span
+          className="tabGlide"
+          aria-hidden="true"
+          style={{ transform: `translateX(${glide.left}px)`, width: glide.width + "px", opacity: glide.ready ? 1 : 0 }}
+        />
         {tabs.map((t, i) => (
           <button key={t} className={"tab " + (dotTab === t ? "on" : "")} onClick={() => go(i)}><TabIcon t={t} /><span>{TAB_LABEL[t] || t}</span></button>
         ))}
@@ -979,15 +1000,32 @@ html{scroll-behavior:smooth;}
 .profile:hover{border-color:#3a3a46;transform:scale(1.05);}
 @keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 @keyframes pop{from{opacity:0;transform:scale(.4) rotate(-30deg)}to{opacity:1;transform:none}}
-.tabs{position:sticky;top:0;z-index:50;display:flex;gap:8px;padding:13px 16px;overflow-x:auto;
+.tabs{position:sticky;top:0;z-index:50;display:flex;gap:8px;padding:14px 16px;overflow-x:auto;
   scrollbar-width:none;transition:.3s;
   background:rgba(11,31,58,.55);backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);}
 .tabs::-webkit-scrollbar{display:none;}
 .stuck{background:rgba(11,31,58,.7);border-bottom:1px solid var(--line);}
-.tab{flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:100px;border:1px solid transparent;background:transparent;
-  color:var(--mut);font:inherit;font-weight:600;font-size:13px;cursor:pointer;transition:.25s;}
+/* liquid-glass пилюля: едет под активной вкладкой (позиция/ширина из JS) */
+.tabGlide{position:absolute;top:14px;left:0;height:42px;border-radius:100px;pointer-events:none;z-index:0;
+  background:linear-gradient(180deg,rgba(255,255,255,.42),rgba(255,255,255,.08));
+  border:1px solid rgba(255,255,255,.5);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.7),inset 0 -3px 8px rgba(0,0,0,.14),0 8px 22px -6px rgba(255,255,255,.4),0 4px 14px -4px rgba(0,0,0,.45);
+  backdrop-filter:url(#switcher) blur(3px) saturate(150%);-webkit-backdrop-filter:blur(3px) saturate(150%);
+  transition:transform .5s cubic-bezier(.5,1.4,.4,1),width .5s cubic-bezier(.5,1.4,.4,1),opacity .3s ease;}
+.tab{position:relative;z-index:1;flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;padding:0 20px;height:42px;border-radius:100px;border:none;background:transparent;
+  color:var(--mut);font:inherit;font-weight:600;font-size:14.5px;cursor:pointer;transition:color .25s,transform .2s;}
+.tab svg{width:19px;height:19px;}
 .tab:hover{color:var(--ink);}
-.tab.on{background:rgba(255,255,255,0.20);color:#fff;border-color:rgba(255,255,255,0.55);box-shadow:inset 0 1px 0 rgba(255,255,255,0.6),0 4px 16px -4px rgba(255,255,255,.35);}
+.tab:active{transform:scale(.94);}
+.tab.on{color:#fff;font-weight:700;}
+.tab.on svg{filter:drop-shadow(0 1px 4px rgba(255,255,255,.45));}
+/* light: тёмное матовое стекло пилюли + тёмный активный текст */
+.app[data-theme="light"] .tabGlide{
+  background:linear-gradient(180deg,rgba(13,31,51,.14),rgba(13,31,51,.04));
+  border-color:rgba(13,31,51,.14);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.85),inset 0 -2px 6px rgba(13,31,51,.08),0 8px 20px -8px rgba(13,31,51,.35);}
+.app[data-theme="light"] .tab.on{color:var(--ink);}
+.app[data-theme="light"] .tab.on svg{filter:drop-shadow(0 1px 3px rgba(13,31,51,.25));}
 .menu{padding:6px 16px 0;}
 .section{margin-bottom:28px;}
 .secTitle{font-family:inherit;letter-spacing:-0.02em;font-weight:700;font-size:19px;margin:16px 4px 12px;text-transform:lowercase;}
