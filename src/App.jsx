@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
+import { ThemeSwitcher } from "@/components/ui/apple-liquid-glass-switcher";
 
 // ============================================================
 //  ЯККАСАРОЙ — меню (UX в духе тёмных меню-приложений)
@@ -828,6 +829,7 @@ function Checkout({ cart, onClose, onDone }) {
 }
 
 export default function App() {
+  const [theme, setTheme] = useState("dark"); // тема меню: dark | light | dim
   const [active, setActive] = useState("кофе");
   const [cart, setCart] = useState([]);
   const [detail, setDetail] = useState(null);
@@ -856,8 +858,17 @@ export default function App() {
   };
   const removeAll=(key)=>{ setCart(c=>c.filter(i=>lineKey(i)!==key)); };
 
+  // фон страницы вне .app и цвет статус-бара под выбранную тему
+  useEffect(()=>{
+    const page = { dark:"#0b1f3a", dim:"#121a23", light:"#eef2f7" }[theme] || "#0b1f3a";
+    document.body.style.background = page;
+    document.documentElement.style.background = page;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute("content", page);
+  }, [theme]);
+
   return (
-    <div className="app">
+    <div className="app" data-theme={theme}>
       <Styles/>
       <header className="hero">
         <div className="heroGlow"/>
@@ -868,9 +879,9 @@ export default function App() {
             </svg>
           </div>
           <div className="brandTxt"><strong>ЯККАСАРОЙ</strong><span>Family · откроемся в 9:30</span></div>
-          <button className="profile" aria-label="Профиль">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
-          </button>
+          <div className="themeSwitch">
+            <ThemeSwitcher value={theme} onValueChange={setTheme} />
+          </div>
         </div>
       </header>
 
@@ -909,7 +920,29 @@ html{scroll-behavior:smooth;}
   min-height:100vh;max-width:540px;margin:0 auto;position:relative;overflow-x:clip;overflow-y:visible;padding-bottom:120px;
   touch-action:pan-x pan-y;
 }
+/* ===== тема: dim (мягкая тёмная) ===== */
+.app[data-theme="dim"]{
+  --bg:#16202b;--bg2:rgba(255,255,255,0.05);--card:rgba(40,48,60,0.6);--ink:#e7ecf2;--mut:#9aa6b2;
+  --accent:#f4c430;--accent2:#e0ab10;--blue:#5b8def;--line:rgba(255,255,255,0.08);
+  --glassBorder:rgba(255,255,255,0.10);--glassHi:rgba(255,255,255,0.16);--solid:#1b2530;
+  background:linear-gradient(160deg,#141d27 0%,#18242f 40%,#152027 70%,#121a23 100%);
+  background-attachment:fixed;
+}
+/* ===== тема: light (светлая) ===== */
+.app[data-theme="light"]{
+  --bg:#f4f6f9;--bg2:rgba(13,31,51,0.05);--card:rgba(255,255,255,0.78);--ink:#0d1f33;--mut:#5a6b7b;
+  --accent:#e0ab10;--accent2:#c8920a;--blue:#3a6fd8;--line:rgba(13,31,51,0.10);
+  --glassBorder:rgba(13,31,51,0.12);--glassHi:rgba(255,255,255,0.7);--solid:#ffffff;
+  --grad:linear-gradient(180deg,#ffe07a 0%,#f4c430 45%,#e0ab10 100%);
+  background:linear-gradient(160deg,#eef2f7 0%,#e7eef6 40%,#eef3f1 70%,#f4f6f9 100%);
+  background-attachment:fixed;color:var(--ink);
+}
+.themeSwitch{margin-left:auto;display:flex;align-items:center;}
+.themeSwitch .switcher{--switcher-size:38px;--switcher-gap:5px;}
+@media (max-width:380px){ .themeSwitch .switcher{--switcher-size:32px;--switcher-gap:4px;} }
 .hero{position:relative;padding:14px 18px 12px;overflow:hidden;border-bottom:1px solid var(--glassBorder);background:rgba(11,31,58,0.35);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);}
+.app[data-theme="light"] .hero{background:rgba(255,255,255,0.45);}
+.app[data-theme="dim"] .hero{background:rgba(20,30,40,0.45);}
 .heroGlow{position:absolute;top:-130px;right:-90px;width:320px;height:320px;
   background:radial-gradient(circle,rgba(244,196,48,.26),transparent 60%);filter:blur(18px);
   animation:floatGlow 9s ease-in-out infinite;}
