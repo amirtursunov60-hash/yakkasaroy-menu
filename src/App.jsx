@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { ThemeSwitcher } from "@/components/ui/apple-liquid-glass-switcher";
+import { Coffee, CupSoda, UtensilsCrossed, House } from "lucide-react";
 
 // ============================================================
 //  ЯККАСАРОЙ — меню (UX в духе тёмных меню-приложений)
@@ -241,11 +242,12 @@ const MENU = [
 const TABS = ["кофе", "айс напитки", "еда", "для дома"];
 const TAB_LABEL = { "кофе": "Кофе", "айс напитки": "Айс напитки", "еда": "Еда", "для дома": "Для дома" };
 function TabIcon({ t }) {
-  const p = { width: 16, height: 16, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round" };
-  if (t === "кофе") return (<svg {...p}><path d="M5 9h12v4.5a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V9z"/><path d="M17 10h1.5a2 2 0 0 1 0 4H17"/><path d="M8 3c-.5 1 .5 2 0 3M11.5 3c-.5 1 .5 2 0 3"/></svg>);
-  if (t === "айс напитки") return (<svg {...p}><path d="M7 7h10l-1.2 12.2a1.8 1.8 0 0 1-1.8 1.6H10a1.8 1.8 0 0 1-1.8-1.6L7 7z"/><path d="M6 7h12"/><path d="M15 3l-2.6 6"/></svg>);
-  if (t === "еда") return (<svg {...p}><path d="M3.5 10.5h17"/><path d="M5 10.5a7 7 0 0 0 14 0"/><path d="M8 6.5c0-1 1-1.2 1-2.2M12 6.5c0-1 1-1.2 1-2.2M16 6.5c0-1 1-1.2 1-2.2"/></svg>);
-  return (<svg {...p}><path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/></svg>);
+  // чистые консистентные line-иконки lucide (наследуют currentColor вкладки)
+  const p = { size: 19, strokeWidth: 1.9, absoluteStrokeWidth: true };
+  if (t === "кофе") return <Coffee {...p} />;
+  if (t === "айс напитки") return <CupSoda {...p} />;
+  if (t === "еда") return <UtensilsCrossed {...p} />;
+  return <House {...p} />;
 }
 const fmt = (n) => n.toLocaleString("ru-RU");
 
@@ -1012,13 +1014,16 @@ html{scroll-behavior:smooth;}
   box-shadow:inset 0 1px 0 rgba(255,255,255,.7),inset 0 -3px 8px rgba(0,0,0,.14),0 8px 22px -6px rgba(255,255,255,.4),0 4px 14px -4px rgba(0,0,0,.45);
   backdrop-filter:url(#switcher) blur(3px) saturate(150%);-webkit-backdrop-filter:blur(3px) saturate(150%);
   transition:transform .5s cubic-bezier(.5,1.4,.4,1),width .5s cubic-bezier(.5,1.4,.4,1),opacity .3s ease;}
-.tab{position:relative;z-index:1;flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;padding:0 20px;height:42px;border-radius:100px;border:none;background:transparent;
-  color:var(--mut);font:inherit;font-weight:600;font-size:14.5px;cursor:pointer;transition:color .25s,transform .2s;}
-.tab svg{width:19px;height:19px;}
+.tab{position:relative;z-index:1;flex:0 0 auto;display:inline-flex;align-items:center;gap:9px;padding:0 20px;height:42px;border-radius:100px;border:none;background:transparent;
+  color:var(--mut);font:inherit;font-weight:600;font-size:14.5px;letter-spacing:-.012em;cursor:pointer;
+  -webkit-font-smoothing:antialiased;transition:color .25s,transform .2s;}
+.tab svg{flex:0 0 auto;width:19px;height:19px;margin-top:-1px;opacity:.85;transition:opacity .25s;}
 .tab:hover{color:var(--ink);}
+.tab:hover svg{opacity:1;}
 .tab:active{transform:scale(.94);}
-.tab.on{color:#fff;font-weight:700;}
-.tab.on svg{filter:drop-shadow(0 1px 4px rgba(255,255,255,.45));}
+.tab.on{color:#fff;font-weight:700;letter-spacing:-.016em;}
+.tab.on svg{opacity:1;stroke-width:2.1px;filter:drop-shadow(0 1px 5px rgba(255,255,255,.4));}
+.app[data-theme="light"] .tab.on svg{filter:drop-shadow(0 1px 4px rgba(13,31,51,.22));}
 /* light: тёмное матовое стекло пилюли + тёмный активный текст */
 .app[data-theme="light"] .tabGlide{
   background:linear-gradient(180deg,rgba(13,31,51,.14),rgba(13,31,51,.04));
