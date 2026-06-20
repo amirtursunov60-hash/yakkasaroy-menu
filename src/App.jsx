@@ -626,16 +626,18 @@ function Pager({ tabs, active, setActive, onOpen, cartCount, quickAdd, quickRemo
 
   return (
     <div className="pager">
-      <nav className="tabs stuck" ref={tabsRef}>
-        <span
-          className="tabGlide"
-          aria-hidden="true"
-          style={{ transform: `translateX(${glide.left}px)`, width: glide.width + "px", opacity: glide.ready ? 1 : 0 }}
-        />
-        {tabs.map((t, i) => (
-          <button key={t} className={"tab " + (dotTab === t ? "on" : "")} onClick={() => go(i)}><TabIcon t={t} /><span>{TAB_LABEL[t] || t}</span></button>
-        ))}
-      </nav>
+      <div className="tabsBar stuck">
+        <nav className="tabs" ref={tabsRef}>
+          <span
+            className="tabGlide"
+            aria-hidden="true"
+            style={{ transform: `translateX(${glide.left}px)`, width: glide.width + "px", opacity: glide.ready ? 1 : 0 }}
+          />
+          {tabs.map((t, i) => (
+            <button key={t} className={"tab " + (dotTab === t ? "on" : "")} onClick={() => go(i)}><TabIcon t={t} /><span>{TAB_LABEL[t] || t}</span></button>
+          ))}
+        </nav>
+      </div>
 
       <div className="track" ref={trackRef} onScroll={onScroll} onTouchStart={onTrackTouchStart} onTouchEnd={onTrackTouchEnd}>
         {byTab.map((sections, i) => {
@@ -967,8 +969,11 @@ html{scroll-behavior:smooth;}
 .app[data-theme="light"] .hero{background:rgba(255,255,255,0.45);}
 .app[data-theme="dim"] .hero{background:rgba(20,30,40,0.45);}
 /* ===== light: переопределяем захардкоженные тёмные подложки витрины и арта ===== */
-.app[data-theme="light"] .stuck{background:rgba(255,255,255,0.7);}
-.app[data-theme="light"] .tabs{background:rgba(255,255,255,0.55);}
+.app[data-theme="light"] .stuck{background:rgba(244,246,249,0.72);}
+.app[data-theme="light"] .tabs{background:rgba(13,31,51,.05);border-color:rgba(13,31,51,.12);
+  box-shadow:0 10px 26px -14px rgba(13,31,51,.4),inset 0 1px 0 rgba(255,255,255,.7),inset 0 -2px 6px rgba(13,31,51,.06);}
+.app[data-theme="dim"] .stuck{background:rgba(18,26,35,0.72);}
+.app[data-theme="dim"] .tabs{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.12);}
 .app[data-theme="light"] .media{background:radial-gradient(circle at 50% 32%,#ffffff,#e6ebf2);}
 .app[data-theme="light"] .coded{background:radial-gradient(circle at 50% 30%,#fbfcfe,#e3e9f1);}
 .app[data-theme="light"] .detailMedia{background:radial-gradient(circle at 50% 35%,#ffffff,#e6ebf2);}
@@ -1002,13 +1007,19 @@ html{scroll-behavior:smooth;}
 .profile:hover{border-color:#3a3a46;transform:scale(1.05);}
 @keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 @keyframes pop{from{opacity:0;transform:scale(.4) rotate(-30deg)}to{opacity:1;transform:none}}
-.tabs{position:sticky;top:0;z-index:50;display:flex;gap:8px;padding:14px 16px;overflow-x:auto;
-  scrollbar-width:none;transition:.3s;
-  background:rgba(11,31,58,.55);backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);}
+/* липкая подложка-бар: маскирует контент под прокруткой */
+.tabsBar{position:sticky;top:0;z-index:50;padding:11px 14px;transition:.3s;}
+.stuck{background:rgba(11,31,58,.7);border-bottom:1px solid var(--line);
+  backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);}
+/* стеклянная дорожка-пилюля вокруг вкладок (как корпус переключателя), внутри — горизонтальный скролл */
+.tabs{position:relative;display:flex;align-items:center;gap:6px;padding:6px;overflow-x:auto;overflow-y:hidden;
+  scrollbar-width:none;border-radius:100px;border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.07);backdrop-filter:blur(14px) saturate(150%);-webkit-backdrop-filter:blur(14px) saturate(150%);
+  box-shadow:0 12px 30px -12px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.22),inset 0 -2px 6px rgba(0,0,0,.16);
+  scroll-padding:6px;}
 .tabs::-webkit-scrollbar{display:none;}
-.stuck{background:rgba(11,31,58,.7);border-bottom:1px solid var(--line);}
 /* liquid-glass пилюля: едет под активной вкладкой (позиция/ширина из JS) */
-.tabGlide{position:absolute;top:14px;left:0;height:42px;border-radius:100px;pointer-events:none;z-index:0;
+.tabGlide{position:absolute;top:6px;left:0;height:42px;border-radius:100px;pointer-events:none;z-index:0;
   background:linear-gradient(180deg,rgba(255,255,255,.42),rgba(255,255,255,.08));
   border:1px solid rgba(255,255,255,.5);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.7),inset 0 -3px 8px rgba(0,0,0,.14),0 8px 22px -6px rgba(255,255,255,.4),0 4px 14px -4px rgba(0,0,0,.45);
