@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { ThemeSwitcher } from "@/components/ui/apple-liquid-glass-switcher";
-import { Coffee, CupSoda, UtensilsCrossed, House } from "lucide-react";
+import { Coffee, CupSoda, UtensilsCrossed, House, Plus } from "lucide-react";
+import { LiquidButton } from "@/components/ui/liquid-glass-button";
 
 // ============================================================
 //  ЯККАСАРОЙ — меню (UX в духе тёмных меню-приложений)
@@ -486,10 +487,12 @@ function HeroShowcase({ item, onOpen, qty = 0, onQuickAdd, onQuickRemove }) {
             </button>
           </div>
         ) : (
-          <button className="heroAddBtn" onClick={(e)=>{stop(e); onQuickAdd(item);}}>
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round"><path d="M12 5v14M5 12h14"/></svg>
-            В корзину
-          </button>
+          <LiquidButton size="xl" className="heroLiquidAdd mt-3.5 font-semibold text-[15px]" onClick={(e)=>{stop(e); onQuickAdd(item);}}>
+            <span className="inline-flex items-center gap-2">
+              <Plus size={18} strokeWidth={2.6} />
+              В корзину
+            </span>
+          </LiquidButton>
         )}
       </div>
     </div>
