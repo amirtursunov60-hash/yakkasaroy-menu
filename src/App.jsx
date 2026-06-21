@@ -1,4 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
+import { ThemeSwitcher } from "@/components/ui/apple-liquid-glass-switcher";
+import { Coffee, CupSoda, UtensilsCrossed, House, Plus } from "lucide-react";
+import { LiquidButton } from "@/components/ui/liquid-glass-button";
 
 // ============================================================
 //  ЯККАСАРОЙ — меню (UX в духе тёмных меню-приложений)
@@ -240,11 +243,12 @@ const MENU = [
 const TABS = ["кофе", "айс напитки", "еда", "для дома"];
 const TAB_LABEL = { "кофе": "Кофе", "айс напитки": "Айс напитки", "еда": "Еда", "для дома": "Для дома" };
 function TabIcon({ t }) {
-  const p = { width: 16, height: 16, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round" };
-  if (t === "кофе") return (<svg {...p}><path d="M5 9h12v4.5a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V9z"/><path d="M17 10h1.5a2 2 0 0 1 0 4H17"/><path d="M8 3c-.5 1 .5 2 0 3M11.5 3c-.5 1 .5 2 0 3"/></svg>);
-  if (t === "айс напитки") return (<svg {...p}><path d="M7 7h10l-1.2 12.2a1.8 1.8 0 0 1-1.8 1.6H10a1.8 1.8 0 0 1-1.8-1.6L7 7z"/><path d="M6 7h12"/><path d="M15 3l-2.6 6"/></svg>);
-  if (t === "еда") return (<svg {...p}><path d="M3.5 10.5h17"/><path d="M5 10.5a7 7 0 0 0 14 0"/><path d="M8 6.5c0-1 1-1.2 1-2.2M12 6.5c0-1 1-1.2 1-2.2M16 6.5c0-1 1-1.2 1-2.2"/></svg>);
-  return (<svg {...p}><path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/></svg>);
+  // чистые консистентные line-иконки lucide (наследуют currentColor вкладки)
+  const p = { size: 19, strokeWidth: 1.9, absoluteStrokeWidth: true };
+  if (t === "кофе") return <Coffee {...p} />;
+  if (t === "айс напитки") return <CupSoda {...p} />;
+  if (t === "еда") return <UtensilsCrossed {...p} />;
+  return <House {...p} />;
 }
 const fmt = (n) => n.toLocaleString("ru-RU");
 
@@ -483,10 +487,12 @@ function HeroShowcase({ item, onOpen, qty = 0, onQuickAdd, onQuickRemove }) {
             </button>
           </div>
         ) : (
-          <button className="heroAddBtn" onClick={(e)=>{stop(e); onQuickAdd(item);}}>
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round"><path d="M12 5v14M5 12h14"/></svg>
-            В корзину
-          </button>
+          <LiquidButton size="xl" className="heroLiquidAdd mt-3.5 font-semibold text-[15px]" onClick={(e)=>{stop(e); onQuickAdd(item);}}>
+            <span className="inline-flex items-center gap-2">
+              <Plus size={18} strokeWidth={2.6} />
+              В корзину
+            </span>
+          </LiquidButton>
         )}
       </div>
     </div>
@@ -508,6 +514,7 @@ function tabsAfter(tabs, current) {
 function Pager({ tabs, active, setActive, onOpen, cartCount, quickAdd, quickRemove, quickCount }) {
   const idx = Math.max(0, tabs.indexOf(active));
   const [dotTab, setDotTab] = useState(active);   // отдельная подсветка точек (не двигает ленту)
+  const [glide, setGlide] = useState({ left: 0, width: 0, ready: false }); // liquid-glass пилюля под активной вкладкой
   const trackRef = useRef(null);
   const tabsRef = useRef(null);
   const lockRef = useRef(false);
@@ -590,8 +597,23 @@ function Pager({ tabs, active, setActive, onOpen, cartCount, quickAdd, quickRemo
     const el = tabsRef.current;
     if (!el) return;
     const di = Math.max(0, tabs.indexOf(dotTab));
-    const btn = el.children[di];
+    const btn = el.querySelectorAll(".tab")[di];
     if (btn) el.scrollTo({ left: btn.offsetLeft - el.clientWidth / 2 + btn.clientWidth / 2, behavior: "smooth" });
+  }, [dotTab, tabs]);
+
+  // liquid-glass пилюля «переезжает» под активную вкладку (ширины вкладок разные)
+  useEffect(() => {
+    const el = tabsRef.current;
+    if (!el) return;
+    const measure = () => {
+      const di = Math.max(0, tabs.indexOf(dotTab));
+      const btn = el.querySelectorAll(".tab")[di];
+      if (btn) setGlide({ left: btn.offsetLeft, width: btn.offsetWidth, ready: true });
+    };
+    measure();
+    const t = setTimeout(measure, 130);            // после подгрузки шрифта Inter
+    window.addEventListener("resize", measure);
+    return () => { clearTimeout(t); window.removeEventListener("resize", measure); };
   }, [dotTab, tabs]);
 
   // если active сменили извне (таб/точка) — двигаем ленту
@@ -607,11 +629,18 @@ function Pager({ tabs, active, setActive, onOpen, cartCount, quickAdd, quickRemo
 
   return (
     <div className="pager">
-      <nav className="tabs stuck" ref={tabsRef}>
-        {tabs.map((t, i) => (
-          <button key={t} className={"tab " + (dotTab === t ? "on" : "")} onClick={() => go(i)}><TabIcon t={t} /><span>{TAB_LABEL[t] || t}</span></button>
-        ))}
-      </nav>
+      <div className="tabsBar stuck">
+        <nav className="tabs" ref={tabsRef}>
+          <span
+            className="tabGlide"
+            aria-hidden="true"
+            style={{ transform: `translateX(${glide.left}px)`, width: glide.width + "px", opacity: glide.ready ? 1 : 0 }}
+          />
+          {tabs.map((t, i) => (
+            <button key={t} className={"tab " + (dotTab === t ? "on" : "")} onClick={() => go(i)}><TabIcon t={t} /><span>{TAB_LABEL[t] || t}</span></button>
+          ))}
+        </nav>
+      </div>
 
       <div className="track" ref={trackRef} onScroll={onScroll} onTouchStart={onTrackTouchStart} onTouchEnd={onTrackTouchEnd}>
         {byTab.map((sections, i) => {
@@ -828,6 +857,7 @@ function Checkout({ cart, onClose, onDone }) {
 }
 
 export default function App() {
+  const [theme, setTheme] = useState("dark"); // тема меню: dark | light | dim
   const [active, setActive] = useState("кофе");
   const [cart, setCart] = useState([]);
   const [detail, setDetail] = useState(null);
@@ -856,8 +886,17 @@ export default function App() {
   };
   const removeAll=(key)=>{ setCart(c=>c.filter(i=>lineKey(i)!==key)); };
 
+  // фон страницы вне .app и цвет статус-бара под выбранную тему
+  useEffect(()=>{
+    const page = { dark:"#0b1f3a", dim:"#121a23", light:"#eef2f7" }[theme] || "#0b1f3a";
+    document.body.style.background = page;
+    document.documentElement.style.background = page;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute("content", page);
+  }, [theme]);
+
   return (
-    <div className="app">
+    <div className="app" data-theme={theme}>
       <Styles/>
       <header className="hero">
         <div className="heroGlow"/>
@@ -868,9 +907,9 @@ export default function App() {
             </svg>
           </div>
           <div className="brandTxt"><strong>ЯККАСАРОЙ</strong><span>Family · откроемся в 9:30</span></div>
-          <button className="profile" aria-label="Профиль">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
-          </button>
+          <div className="themeSwitch">
+            <ThemeSwitcher value={theme} onValueChange={setTheme} />
+          </div>
         </div>
       </header>
 
@@ -909,7 +948,54 @@ html{scroll-behavior:smooth;}
   min-height:100vh;max-width:540px;margin:0 auto;position:relative;overflow-x:clip;overflow-y:visible;padding-bottom:120px;
   touch-action:pan-x pan-y;
 }
+/* ===== тема: dim (мягкая тёмная) ===== */
+.app[data-theme="dim"]{
+  --bg:#16202b;--bg2:rgba(255,255,255,0.05);--card:rgba(40,48,60,0.6);--ink:#e7ecf2;--mut:#9aa6b2;
+  --accent:#f4c430;--accent2:#e0ab10;--blue:#5b8def;--line:rgba(255,255,255,0.08);
+  --glassBorder:rgba(255,255,255,0.10);--glassHi:rgba(255,255,255,0.16);--solid:#1b2530;
+  background:linear-gradient(160deg,#141d27 0%,#18242f 40%,#152027 70%,#121a23 100%);
+  background-attachment:fixed;
+}
+/* ===== тема: light (светлая) ===== */
+.app[data-theme="light"]{
+  --bg:#f4f6f9;--bg2:rgba(13,31,51,0.05);--card:rgba(255,255,255,0.78);--ink:#0d1f33;--mut:#5a6b7b;
+  --accent:#e0ab10;--accent2:#c8920a;--blue:#3a6fd8;--line:rgba(13,31,51,0.10);
+  --glassBorder:rgba(13,31,51,0.12);--glassHi:rgba(255,255,255,0.7);--solid:#ffffff;
+  --grad:linear-gradient(180deg,#ffe07a 0%,#f4c430 45%,#e0ab10 100%);
+  background:linear-gradient(160deg,#eef2f7 0%,#e7eef6 40%,#eef3f1 70%,#f4f6f9 100%);
+  background-attachment:fixed;color:var(--ink);
+}
+.themeSwitch{margin-left:auto;display:flex;align-items:center;}
+.themeSwitch .switcher{--switcher-size:38px;--switcher-gap:5px;}
+@media (max-width:380px){ .themeSwitch .switcher{--switcher-size:32px;--switcher-gap:4px;} }
 .hero{position:relative;padding:14px 18px 12px;overflow:hidden;border-bottom:1px solid var(--glassBorder);background:rgba(11,31,58,0.35);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);}
+.app[data-theme="light"] .hero{background:rgba(255,255,255,0.45);}
+.app[data-theme="dim"] .hero{background:rgba(20,30,40,0.45);}
+/* ===== light: переопределяем захардкоженные тёмные подложки витрины и арта ===== */
+.app[data-theme="light"] .stuck{background:rgba(244,246,249,0.55);}
+.app[data-theme="light"] .tabs{background:rgba(13,31,51,.05);border-color:rgba(13,31,51,.12);
+  box-shadow:0 10px 26px -14px rgba(13,31,51,.4),inset 0 1px 0 rgba(255,255,255,.7),inset 0 -2px 6px rgba(13,31,51,.06);}
+.app[data-theme="dim"] .stuck{background:rgba(18,26,35,0.55);}
+.app[data-theme="dim"] .tabs{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.12);}
+.app[data-theme="light"] .media{background:radial-gradient(circle at 50% 32%,#ffffff,#e6ebf2);}
+.app[data-theme="light"] .coded{background:radial-gradient(circle at 50% 30%,#fbfcfe,#e3e9f1);}
+.app[data-theme="light"] .detailMedia{background:radial-gradient(circle at 50% 35%,#ffffff,#e6ebf2);}
+.app[data-theme="light"] .detailMedia.coded{background:radial-gradient(circle at 50% 32%,#fbfcfe,#e3e9f1);}
+.app[data-theme="light"] .cartThumb{background:radial-gradient(circle at 50% 30%,#fbfcfe,#e3e9f1);}
+.app[data-theme="light"] .heroShow{background:radial-gradient(120% 80% at 50% 18%,#fdfdff,#dfe6ef 70%);}
+.app[data-theme="light"] .heroShowShade{background:linear-gradient(180deg,rgba(244,246,249,0) 0%,rgba(244,246,249,0) 52%,rgba(244,246,249,.7) 84%,var(--bg) 100%);}
+.app[data-theme="light"] .gshadow,.app[data-theme="light"] .bshadow{background:radial-gradient(ellipse,rgba(40,55,75,.18),transparent 70%);}
+.app[data-theme="light"] .dots{background:rgba(255,255,255,0.7);}
+.app[data-theme="light"] .dot{background:#c2ccd8;}
+.app[data-theme="light"] .profile:hover,.app[data-theme="light"] .addon:hover,.app[data-theme="light"] .payOpt:hover,.app[data-theme="light"] .subChip:hover{border-color:rgba(13,31,51,0.25);}
+.app[data-theme="light"] .sheetCard{background:rgba(248,250,253,0.9);}
+.app[data-theme="light"] .sheetBar{background:rgba(248,250,253,0.75);}
+.app[data-theme="light"] .closeBtn{background:linear-gradient(180deg,rgba(255,255,255,.7),rgba(255,255,255,0) 50%),rgba(225,231,239,.85);border-color:rgba(13,31,51,0.18);}
+.app[data-theme="light"] .closeBtn:hover{background:rgba(225,231,239,1);}
+/* ===== dim: чуть мягче подложки витрины/шторки ===== */
+.app[data-theme="dim"] .heroShow{background:radial-gradient(120% 80% at 50% 18%,#222d39,#10161d 70%);}
+.app[data-theme="dim"] .sheetCard{background:rgba(22,32,43,0.88);}
+.app[data-theme="dim"] .sheetBar{background:rgba(22,32,43,0.65);}
 .heroGlow{position:absolute;top:-130px;right:-90px;width:320px;height:320px;
   background:radial-gradient(circle,rgba(244,196,48,.26),transparent 60%);filter:blur(18px);
   animation:floatGlow 9s ease-in-out infinite;}
@@ -924,15 +1010,39 @@ html{scroll-behavior:smooth;}
 .profile:hover{border-color:#3a3a46;transform:scale(1.05);}
 @keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 @keyframes pop{from{opacity:0;transform:scale(.4) rotate(-30deg)}to{opacity:1;transform:none}}
-.tabs{position:sticky;top:0;z-index:50;display:flex;gap:8px;padding:13px 16px;overflow-x:auto;
-  scrollbar-width:none;transition:.3s;
-  background:rgba(11,31,58,.55);backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);}
+/* липкая подложка-бар: маскирует контент под прокруткой */
+.tabsBar{position:sticky;top:0;z-index:50;padding:11px 14px;transition:.3s;}
+.stuck{background:rgba(11,31,58,.5);border-bottom:1px solid var(--line);
+  backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%);}
+/* стеклянная дорожка-пилюля вокруг вкладок — материал ТОЧЬ-В-ТОЧЬ как корпус .switcher */
+.tabs{position:relative;display:flex;align-items:center;gap:6px;padding:6px;overflow-x:auto;overflow-y:hidden;
+  scrollbar-width:none;border-radius:100px;border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.08);backdrop-filter:blur(14px) saturate(150%);-webkit-backdrop-filter:blur(14px) saturate(150%);
+  box-shadow:0 10px 30px -10px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.25);
+  scroll-padding:6px;}
 .tabs::-webkit-scrollbar{display:none;}
-.stuck{background:rgba(11,31,58,.7);border-bottom:1px solid var(--line);}
-.tab{flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:100px;border:1px solid transparent;background:transparent;
-  color:var(--mut);font:inherit;font-weight:600;font-size:13px;cursor:pointer;transition:.25s;}
+/* бегунок — ТОЧЬ-В-ТОЧЬ как .switcher::before: без жёсткой обводки и белого ореола */
+.tabGlide{position:absolute;top:6px;left:0;height:42px;border-radius:100px;pointer-events:none;z-index:0;
+  background:linear-gradient(180deg,rgba(255,255,255,.35),rgba(255,255,255,.08));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 6px rgba(0,0,0,.15),0 6px 16px -6px rgba(0,0,0,.5);
+  backdrop-filter:url(#switcher) blur(1px);-webkit-backdrop-filter:blur(1px);
+  transition:transform .5s cubic-bezier(.5,1.4,.4,1),width .5s cubic-bezier(.5,1.4,.4,1),opacity .3s ease;}
+.tab{position:relative;z-index:1;flex:0 0 auto;display:inline-flex;align-items:center;gap:9px;padding:0 20px;height:42px;border-radius:100px;border:none;background:transparent;
+  color:var(--mut);font:inherit;font-weight:600;font-size:14.5px;letter-spacing:-.012em;cursor:pointer;
+  -webkit-font-smoothing:antialiased;transition:color .25s,transform .2s;}
+.tab svg{flex:0 0 auto;width:19px;height:19px;margin-top:-1px;opacity:.85;transition:opacity .25s;}
 .tab:hover{color:var(--ink);}
-.tab.on{background:rgba(255,255,255,0.20);color:#fff;border-color:rgba(255,255,255,0.55);box-shadow:inset 0 1px 0 rgba(255,255,255,0.6),0 4px 16px -4px rgba(255,255,255,.35);}
+.tab:hover svg{opacity:1;}
+.tab:active{transform:scale(.94);}
+.tab.on{color:#fff;font-weight:700;letter-spacing:-.016em;}
+.tab.on svg{opacity:1;stroke-width:2.1px;filter:drop-shadow(0 1px 5px rgba(255,255,255,.4));}
+.app[data-theme="light"] .tab.on svg{filter:drop-shadow(0 1px 4px rgba(13,31,51,.22));}
+/* light: тёмное матовое стекло пилюли + тёмный активный текст */
+.app[data-theme="light"] .tabGlide{
+  background:linear-gradient(180deg,rgba(255,255,255,.85),rgba(255,255,255,.45));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -2px 6px rgba(13,31,51,.08),0 6px 16px -6px rgba(13,31,51,.4);}
+.app[data-theme="light"] .tab.on{color:var(--ink);}
+.app[data-theme="light"] .tab.on svg{filter:drop-shadow(0 1px 3px rgba(13,31,51,.25));}
 .menu{padding:6px 16px 0;}
 .section{margin-bottom:28px;}
 .secTitle{font-family:inherit;letter-spacing:-0.02em;font-weight:700;font-size:19px;margin:16px 4px 12px;text-transform:lowercase;}
