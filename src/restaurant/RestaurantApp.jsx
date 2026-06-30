@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { UtensilsCrossed, Receipt, LayoutDashboard, ChefHat, Bike, DoorClosed, Warehouse, Settings, BarChart3, Coins, Calculator } from "lucide-react";
 import { ThemeProvider, useTheme } from "@theme";
 
 // ============================================================
@@ -11,17 +12,17 @@ import { ThemeProvider, useTheme } from "@theme";
 
 // Вкладки 1:1 с интерфейсом оригинала (см. скриншот заказчика).
 const TABS = [
-  { key: "menu",      icon: "🍽️", label: "Меню" },
-  { key: "orders",    icon: "🧾", label: "Заказы" },
-  { key: "summary",   icon: "📋", label: "Сводка" },
-  { key: "kitchen",   icon: "🔥", label: "Кухня" },
-  { key: "delivery",  icon: "🛵", label: "Доставка" },
-  { key: "shift",     icon: "🏪", label: "Закрытие смены" },
-  { key: "stock",     icon: "🏬", label: "Склад" },
-  { key: "admin",     icon: "⚙️", label: "Управление" },
-  { key: "reports",   icon: "📈", label: "Отчёты" },
-  { key: "tips",      icon: "💰", label: "Распр. чаевых" },
-  { key: "accounts",  icon: "🧮", label: "Accounts" },
+  { key: "menu",      icon: UtensilsCrossed, label: "Меню" },
+  { key: "orders",    icon: Receipt,         label: "Заказы" },
+  { key: "summary",   icon: LayoutDashboard, label: "Сводка" },
+  { key: "kitchen",   icon: ChefHat,         label: "Кухня" },
+  { key: "delivery",  icon: Bike,            label: "Доставка" },
+  { key: "shift",     icon: DoorClosed,      label: "Закрытие смены" },
+  { key: "stock",     icon: Warehouse,       label: "Склад" },
+  { key: "admin",     icon: Settings,        label: "Управление" },
+  { key: "reports",   icon: BarChart3,       label: "Отчёты" },
+  { key: "tips",      icon: Coins,           label: "Распр. чаевых" },
+  { key: "accounts",  icon: Calculator,      label: "Accounts" },
 ];
 
 function Shell() {
@@ -49,10 +50,11 @@ function Shell() {
     <div style={{ minHeight: "100dvh", background: C.pageGrad, color: C.text, display: "flex", flexDirection: "column" }}>
       {/* Шапка модуля не нужна — контекст «Ресторан» даёт сама вкладка Финанса.
           Сразу показываем горизонтальную ленту вкладок со «стеклянной» пилюлей. */}
-      <nav className="modbar" style={{ ...st.modBar, position: "relative", top: 0, margin: isMobile ? "12px 12px 0" : "16px 24px 0" }}>
+      <nav className="modbar" style={{ ...st.modBar, position: "relative", top: 0 }}>
         <div className="modpill" style={{ ...st.modPill, left: pill.left, width: pill.width, opacity: pill.ready ? 1 : 0 }} />
         {TABS.map((t) => {
           const on = t.key === active;
+          const Icon = t.icon;
           return (
             <div
               key={t.key}
@@ -61,7 +63,7 @@ function Shell() {
               style={{ ...st.mod, ...(on ? st.modActive : {}) }}
               onClick={() => setActive(t.key)}
             >
-              <span style={{ fontSize: 16 }}>{t.icon}</span><span>{t.label}</span>
+              <Icon size={17} strokeWidth={2} color={on ? C.text : C.sub} /><span>{t.label}</span>
             </div>
           );
         })}
@@ -73,7 +75,7 @@ function Shell() {
           background: C.panel, border: `1px solid ${C.line}`, borderRadius: 16,
           padding: isMobile ? 20 : 40, textAlign: "center", maxWidth: 560, margin: "0 auto",
         }}>
-          <div style={{ fontSize: 44, marginBottom: 12 }}>{current.icon}</div>
+          <current.icon size={44} strokeWidth={1.5} color={C.green} style={{ margin: "0 auto 12px", display: "block" }} />
           <h2 style={{ margin: "0 0 8px", fontSize: 22, fontWeight: 800, color: C.text }}>{current.label}</h2>
           <p style={{ margin: 0, color: C.sub, fontSize: 14 }}>Раздел в разработке. Подключаем к общему Supabase по дорожной карте.</p>
           <div style={{
