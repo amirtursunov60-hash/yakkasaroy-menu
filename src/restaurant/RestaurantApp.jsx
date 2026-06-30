@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ThemeProvider, useTheme } from "@theme";
 
 // ============================================================
@@ -25,39 +25,44 @@ const TABS = [
 ];
 
 function Shell() {
-  const { C, isMobile } = useTheme();
+  const { C, st, isMobile } = useTheme();
   const [active, setActive] = useState(TABS[0].key);
   const current = TABS.find((t) => t.key === active) || TABS[0];
+
+  // «Жидкая» стеклянная пилюля под активной вкладкой (как modbar в Финансе):
+  // измеряем позицию/ширину активной вкладки и анимированно сдвигаем пилюлю.
+  const activeTabRef = useRef(null);
+  const [pill, setPill] = useState({ left: 0, width: 0, ready: false });
+  useEffect(() => {
+    const measure = () => {
+      const el = activeTabRef.current;
+      if (!el) return;
+      setPill({ left: el.offsetLeft, width: el.offsetWidth, ready: true });
+    };
+    const r = requestAnimationFrame(measure);
+    const t = setTimeout(measure, 240); // повтор после загрузки шрифтов/раскладки
+    window.addEventListener("resize", measure);
+    return () => { cancelAnimationFrame(r); clearTimeout(t); window.removeEventListener("resize", measure); };
+  }, [active, isMobile]);
 
   return (
     <div style={{ minHeight: "100dvh", background: C.pageGrad, color: C.text, display: "flex", flexDirection: "column" }}>
       {/* Шапка модуля не нужна — контекст «Ресторан» даёт сама вкладка Финанса.
-          Сразу показываем горизонтальную ленту вкладок. */}
-      {/* ГОРИЗОНТАЛЬНАЯ лента вкладок (скролл по горизонтали на телефоне) */}
-      <nav style={{
-        display: "flex", gap: 8, overflowX: "auto", whiteSpace: "nowrap",
-        padding: isMobile ? "12px" : "16px 24px",
-        borderBottom: `1px solid ${C.line}`,
-        WebkitOverflowScrolling: "touch", scrollbarWidth: "thin",
-      }}>
+          Сразу показываем горизонтальную ленту вкладок со «стеклянной» пилюлей. */}
+      <nav className="modbar" style={{ ...st.modBar, position: "relative", top: 0, margin: isMobile ? "12px 12px 0" : "16px 24px 0" }}>
+        <div className="modpill" style={{ ...st.modPill, left: pill.left, width: pill.width, opacity: pill.ready ? 1 : 0 }} />
         {TABS.map((t) => {
           const on = t.key === active;
           return (
-            <button
+            <div
               key={t.key}
+              ref={on ? activeTabRef : null}
+              className="mod"
+              style={{ ...st.mod, ...(on ? st.modActive : {}) }}
               onClick={() => setActive(t.key)}
-              style={{
-                flexShrink: 0, display: "inline-flex", alignItems: "center", gap: 7,
-                padding: "9px 14px", borderRadius: 999, cursor: "pointer",
-                fontSize: 14, fontWeight: on ? 700 : 500,
-                border: `1px solid ${on ? C.green : C.line}`,
-                background: on ? C.green : "transparent",
-                color: on ? C.onAccent : C.sub,
-                transition: "all .15s ease",
-              }}
             >
-              <span style={{ fontSize: 16 }}>{t.icon}</span>{t.label}
-            </button>
+              <span style={{ fontSize: 16 }}>{t.icon}</span><span>{t.label}</span>
+            </div>
           );
         })}
       </nav>
