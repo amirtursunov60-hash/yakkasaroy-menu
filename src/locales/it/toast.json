@@ -1,0 +1,127 @@
+{
+  "generic": {
+    "saved": "Salvato con successo",
+    "updated": "Aggiornato con successo",
+    "deleted": "Eliminato con successo",
+    "created": "Creato con successo",
+    "failed": "Operazione non riuscita",
+    "error": "Si è verificato un errore"
+  },
+  "inventory": {
+    "wasteSaved": "Scarto salvato",
+    "issueSaved": "Scarico salvato",
+    "issueReturnSaved": "Reso scarico salvato",
+    "purchaseSaved": "Acquisto salvato",
+    "purchaseReturnSaved": "Reso acquisto salvato",
+    "purchaseOrderSaved": "Ordine di acquisto salvato",
+    "itemGroupSaved": "Gruppo articoli salvato",
+    "itemSaved": "Articolo {{name}} salvato",
+    "categorySaved": "Categoria {{name}} salvata",
+    "supplierSaved": "Fornitore {{name}} salvato",
+    "storeSaved": "Magazzino {{name}} salvato",
+    "unableGenerateWasteNumber": "Impossibile generare il prossimo numero scarto",
+    "unableGenerateIssueNumber": "Impossibile generare il prossimo numero scarico",
+    "unableGenerateIssueReturnNumber": "Impossibile generare il prossimo numero reso scarico",
+    "unableGenerateInvoiceNumber": "Impossibile generare il prossimo numero fattura",
+    "unableGenerateReturnNumber": "Impossibile generare il prossimo numero reso",
+    "unableGeneratePoNumber": "Impossibile generare il prossimo numero ordine di acquisto",
+    "itemsExceedQuantity": "Uno o più articoli superano la quantità disponibile"
+  },
+  "delivery": {
+    "settingsSaved": "Impostazioni consegna salvate con successo",
+    "settingsLoadFailed": "Caricamento impostazioni consegna non riuscito",
+    "settingsSaveFailed": "Salvataggio impostazioni consegna non riuscito",
+    "mapAreasSaved": "Aree mappa salvate con successo",
+    "mapAreasSaveFailed": "Salvataggio aree mappa non riuscito",
+    "mapAreasLoadFailed": "Caricamento aree mappa non riuscito",
+    "shapeTooSmall": "La forma è troppo piccola. Trascina un'area più grande.",
+    "rectangleTooSmall": "Il rettangolo è troppo piccolo. Trascina un'area più grande.",
+    "circleTooSmall": "Il cerchio è troppo piccolo. Trascina un raggio più grande.",
+    "polygonTooSmall": "Il poligono è troppo piccolo. Trascina un contorno più grande.",
+    "fetchRidersFailed": "Recupero rider non riuscito",
+    "acceptFailed": "Accettazione ordine non riuscita",
+    "rejectFailed": "Rifiuto ordine non riuscito",
+    "sendFailed": "Invio ordine non riuscito",
+    "attachRiderFailed": "Assegnazione rider non riuscita"
+  },
+  "reports": {
+    "mapAreasSaveFailed": "Salvataggio aree mappa non riuscito"
+  },
+  "kitchen": {
+    "recallFailed": "Richiamo ordine non riuscito"
+  },
+  "closing": {
+    "loadFailed": "Caricamento chiusura non riuscito",
+    "alreadyClosed": "Questo ciclo è già chiuso.",
+    "openOrders": "Ci sono ordini aperti. Chiudili prima.",
+    "completed": "Chiusura completata con successo!",
+    "savedDraft": "Chiusura salvata come bozza con successo!",
+    "saveFailed": "Salvataggio chiusura non riuscito",
+    "notFound": "Nessuna chiusura trovata per questo ciclo.",
+    "reopened": "Chiusura riaperta in modalità modifica.",
+    "reopenFailed": "Riapertura chiusura non riuscita",
+    "printFailed": "Stampa chiusura non riuscita"
+  },
+  "summary": {
+    "noProductMix": "Nessun articolo trovato per il product mix.",
+    "noTimeEntries": "Nessuna timbratura completata trovata per questa data.",
+    "noServerSales": "Nessun dato vendite per cameriere trovato per questa data."
+  },
+  "clock": {
+    "noActiveEntry": "Nessuna timbratura attiva trovata",
+    "loadEntryFailed": "Caricamento timbratura non riuscito",
+    "loadSaleSummaryFailed": "Caricamento riepilogo vendite non riuscito",
+    "clockedOut": "Uscita timbrata con successo",
+    "clockOutFailed": "Timbratura uscita non riuscita"
+  },
+  "tipDistribution": {
+    "selectShiftAndDate": "Seleziona turno e data",
+    "unableToDeriveRange": "Impossibile ricavare l'intervallo orario dal turno",
+    "saved": "Distribuzione mance salvata"
+  },
+  "admin": {
+    "dishSaved": "Piatto {{name}} salvato",
+    "menuSaved": "Menu {{name}} salvato",
+    "categorySaved": "Categoria {{name}} salvata",
+    "couponSaved": "Coupon {{code}} salvato",
+    "discountSaved": "Sconto {{name}} salvato",
+    "extraSaved": "Extra {{name}} salvato",
+    "floorSaved": "Piano {{name}} salvato",
+    "kitchenSaved": "Cucina {{name}} salvata",
+    "modifierGroupSaved": "Gruppo modificatori {{name}} salvato",
+    "orderTypeSaved": "Tipo ordine {{name}} salvato",
+    "paymentTypeSaved": "Tipo pagamento {{name}} salvato",
+    "printerSaved": "Stampante {{name}} salvata",
+    "printSettingsSaved": "Impostazioni di stampa salvate",
+    "roleSaved": "Ruolo {{name}} salvato",
+    "shiftSaved": "Turno {{name}} salvato",
+    "tableSaved": "Tavolo {{name}} salvato",
+    "taxSaved": "Tassa {{name}} salvata",
+    "userSaved": "Utente {{name}} salvato",
+    "workflowSaved": "Flusso di lavoro {{name}} salvato",
+    "tipDistributionSaved": "Distribuzione mance salvata",
+    "categoriesBulkUpdated": "{{count}} categorie aggiornate",
+    "dishesBulkUpdated": "{{count}} piatti aggiornati",
+    "tablesBulkUpdated": "{{count}} tavoli aggiornati",
+    "failedReadPhoto": "Impossibile leggere la foto",
+    "noCategoriesSelected": "Nessuna categoria selezionata",
+    "noDishesSelected": "Nessun piatto selezionato",
+    "noTablesSelected": "Nessun tavolo selezionato",
+    "noTablesToArrange": "Nessun tavolo trovato da organizzare",
+    "selectAtLeastOneTable": "Seleziona almeno un tavolo",
+    "tablesArranged": "{{count}} tavoli organizzati nella griglia",
+    "tablesUpdated": "{{count}} tavoli aggiornati",
+    "menuNotFound": "Menu non trovato",
+    "menuItemsSaved": "Articoli del menu salvati",
+    "invalidFactor": "Inserisci un fattore valido",
+    "selectCategoriesRequired": "Seleziona almeno una categoria",
+    "menuItemsUpdated": "{{count}} articolo/i aggiornato/i",
+    "invalidCategories": "Le categorie non sono valide",
+    "passwordRequired": "La password è obbligatoria per il nuovo utente"
+  },
+  "settingsDelete": {
+    "deactivated": "{{entity}} è in uso ed è stato disattivato.",
+    "deleted": "{{entity}} eliminato con successo.",
+    "failed": "Impossibile eliminare {{entity}}."
+  }
+}

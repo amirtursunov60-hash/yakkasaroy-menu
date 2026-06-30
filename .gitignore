@@ -1,0 +1,7 @@
+# Reference-only repo — не запускается, но на всякий случай
+node_modules/
+dist/
+.env
+.env.*
+*.log
+.DS_Store

@@ -1,0 +1,127 @@
+{
+  "generic": {
+    "saved": "Succesvol opgeslagen",
+    "updated": "Succesvol bijgewerkt",
+    "deleted": "Succesvol verwijderd",
+    "created": "Succesvol aangemaakt",
+    "failed": "Bewerking mislukt",
+    "error": "Er is een fout opgetreden"
+  },
+  "inventory": {
+    "wasteSaved": "Afval opgeslagen",
+    "issueSaved": "Uitgifte opgeslagen",
+    "issueReturnSaved": "Uitgifteretour opgeslagen",
+    "purchaseSaved": "Inkoop opgeslagen",
+    "purchaseReturnSaved": "Inkoopretour opgeslagen",
+    "purchaseOrderSaved": "Inkooporder opgeslagen",
+    "itemGroupSaved": "Artikelgroep opgeslagen",
+    "itemSaved": "Artikel {{name}} opgeslagen",
+    "categorySaved": "Categorie {{name}} opgeslagen",
+    "supplierSaved": "Leverancier {{name}} opgeslagen",
+    "storeSaved": "Magazijn {{name}} opgeslagen",
+    "unableGenerateWasteNumber": "Kan volgend afvalnummer niet genereren",
+    "unableGenerateIssueNumber": "Kan volgend uitgiftenummer niet genereren",
+    "unableGenerateIssueReturnNumber": "Kan volgend uitgifteretournummer niet genereren",
+    "unableGenerateInvoiceNumber": "Kan volgend factuurnummer niet genereren",
+    "unableGenerateReturnNumber": "Kan volgend retournummer niet genereren",
+    "unableGeneratePoNumber": "Kan volgend PO-nummer niet genereren",
+    "itemsExceedQuantity": "Een of meer artikelen overschrijden de beschikbare hoeveelheid"
+  },
+  "delivery": {
+    "settingsSaved": "Bezorginstellingen succesvol opgeslagen",
+    "settingsLoadFailed": "Bezorginstellingen laden mislukt",
+    "settingsSaveFailed": "Bezorginstellingen opslaan mislukt",
+    "mapAreasSaved": "Kaartgebieden succesvol opgeslagen",
+    "mapAreasSaveFailed": "Kaartgebieden opslaan mislukt",
+    "mapAreasLoadFailed": "Kaartgebieden laden mislukt",
+    "shapeTooSmall": "Vorm is te klein. Sleep een groter gebied.",
+    "rectangleTooSmall": "Rechthoek is te klein. Sleep een groter gebied.",
+    "circleTooSmall": "Cirkel is te klein. Sleep een grotere straal.",
+    "polygonTooSmall": "Veelhoek is te klein. Sleep een grotere omtrek.",
+    "fetchRidersFailed": "Bezorgers ophalen mislukt",
+    "acceptFailed": "Bestelling accepteren mislukt",
+    "rejectFailed": "Bestelling afwijzen mislukt",
+    "sendFailed": "Bestelling verzenden mislukt",
+    "attachRiderFailed": "Bezorger koppelen mislukt"
+  },
+  "reports": {
+    "mapAreasSaveFailed": "Kaartgebieden opslaan mislukt"
+  },
+  "kitchen": {
+    "recallFailed": "Bestelling terughalen mislukt"
+  },
+  "closing": {
+    "loadFailed": "Afsluiting laden mislukt",
+    "alreadyClosed": "Deze cyclus is al afgesloten.",
+    "openOrders": "Er zijn open bestellingen. Sluit deze eerst.",
+    "completed": "Afsluiting succesvol voltooid!",
+    "savedDraft": "Afsluiting succesvol opgeslagen als concept!",
+    "saveFailed": "Afsluiting opslaan mislukt",
+    "notFound": "Geen afsluiting gevonden voor deze cyclus.",
+    "reopened": "Afsluiting heropend in bewerkingsmodus.",
+    "reopenFailed": "Afsluiting heropenen mislukt",
+    "printFailed": "Afsluiting afdrukken mislukt"
+  },
+  "summary": {
+    "noProductMix": "Geen artikelen gevonden voor productmix.",
+    "noTimeEntries": "Geen voltooide tijdregistraties gevonden voor deze datum.",
+    "noServerSales": "Geen serververkoopgegevens gevonden voor deze datum."
+  },
+  "clock": {
+    "noActiveEntry": "Geen actieve tijdregistratie gevonden",
+    "loadEntryFailed": "Tijdregistratie laden mislukt",
+    "loadSaleSummaryFailed": "Verkoopoverzicht laden mislukt",
+    "clockedOut": "Succesvol uitgeklokt",
+    "clockOutFailed": "Uitklokken mislukt"
+  },
+  "tipDistribution": {
+    "selectShiftAndDate": "Selecteer dienst en datum",
+    "unableToDeriveRange": "Kan tijdsbereik niet afleiden van dienst",
+    "saved": "Fooiverdeling opgeslagen"
+  },
+  "admin": {
+    "dishSaved": "Gerecht {{name}} opgeslagen",
+    "menuSaved": "Menu {{name}} opgeslagen",
+    "categorySaved": "Categorie {{name}} opgeslagen",
+    "couponSaved": "Coupon {{code}} opgeslagen",
+    "discountSaved": "Korting {{name}} opgeslagen",
+    "extraSaved": "Extra {{name}} opgeslagen",
+    "floorSaved": "Verdieping {{name}} opgeslagen",
+    "kitchenSaved": "Keuken {{name}} opgeslagen",
+    "modifierGroupSaved": "Modificatiegroep {{name}} opgeslagen",
+    "orderTypeSaved": "Bestellingstype {{name}} opgeslagen",
+    "paymentTypeSaved": "Betaaltype {{name}} opgeslagen",
+    "printerSaved": "Printer {{name}} opgeslagen",
+    "printSettingsSaved": "Afdrukinstellingen opgeslagen",
+    "roleSaved": "Rol {{name}} opgeslagen",
+    "shiftSaved": "Dienst {{name}} opgeslagen",
+    "tableSaved": "Tafel {{name}} opgeslagen",
+    "taxSaved": "Belasting {{name}} opgeslagen",
+    "userSaved": "Gebruiker {{name}} opgeslagen",
+    "workflowSaved": "Workflow {{name}} opgeslagen",
+    "tipDistributionSaved": "Fooienverdeling opgeslagen",
+    "categoriesBulkUpdated": "{{count}} categorieën bijgewerkt",
+    "dishesBulkUpdated": "{{count}} gerechten bijgewerkt",
+    "tablesBulkUpdated": "{{count}} tafels bijgewerkt",
+    "failedReadPhoto": "Foto kon niet worden gelezen",
+    "noCategoriesSelected": "Geen categorieën geselecteerd",
+    "noDishesSelected": "Geen gerechten geselecteerd",
+    "noTablesSelected": "Geen tafels geselecteerd",
+    "noTablesToArrange": "Geen tafels gevonden om te rangschikken",
+    "selectAtLeastOneTable": "Selecteer minstens één tafel",
+    "tablesArranged": "{{count}} tafels gerangschikt in het raster",
+    "tablesUpdated": "{{count}} tafels bijgewerkt",
+    "menuNotFound": "Menu niet gevonden",
+    "menuItemsSaved": "Menu-items opgeslagen",
+    "invalidFactor": "Voer een geldige factor in",
+    "selectCategoriesRequired": "Selecteer minstens één categorie",
+    "menuItemsUpdated": "{{count}} item(s) bijgewerkt",
+    "invalidCategories": "Categorieën zijn ongeldig",
+    "passwordRequired": "Wachtwoord is verplicht voor nieuwe gebruiker"
+  },
+  "settingsDelete": {
+    "deactivated": "{{entity}} is in gebruik en is gedeactiveerd.",
+    "deleted": "{{entity}} succesvol verwijderd.",
+    "failed": "Verwijderen van {{entity}} mislukt."
+  }
+}

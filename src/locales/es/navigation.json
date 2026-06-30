@@ -1,0 +1,33 @@
+{
+  "sidebar": {
+    "menu": "Menú",
+    "orders": "Pedidos",
+    "summary": "Resumen",
+    "kitchen": "Cocina",
+    "delivery": "Entrega",
+    "closing": "Cierre",
+    "inventory": "Inventario",
+    "manage": "Gestionar",
+    "reports": "Informes",
+    "tipDist": "Dist. propinas",
+    "settings": "Configuración",
+    "clock": "Reloj",
+    "accounts": "Accounts"
+  },
+  "modules": {
+    "Menu": "Menú",
+    "Orders": "Pedidos",
+    "Summary": "Resumen",
+    "Reports": "Informes",
+    "Closing": "Cierre",
+    "Kitchen": "Cocina",
+    "Delivery": "Entrega",
+    "Admin": "Administración",
+    "Riders": "Repartidores",
+    "Tips": "Distribución de propinas",
+    "Inventory": "Inventario",
+    "Settings": "Configuración",
+    "Accounts": "Accounts"
+  },
+  "authenticateToAccess": "Autentíquese para acceder a {{module}}"
+}

@@ -1,0 +1,127 @@
+{
+  "generic": {
+    "saved": "Guardado correctamente",
+    "updated": "Actualizado correctamente",
+    "deleted": "Eliminado correctamente",
+    "created": "Creado correctamente",
+    "failed": "Operación fallida",
+    "error": "Ocurrió un error"
+  },
+  "inventory": {
+    "wasteSaved": "Desperdicio guardado",
+    "issueSaved": "Salida guardada",
+    "issueReturnSaved": "Devolución de salida guardada",
+    "purchaseSaved": "Compra guardada",
+    "purchaseReturnSaved": "Devolución de compra guardada",
+    "purchaseOrderSaved": "Orden de compra guardada",
+    "itemGroupSaved": "Grupo de artículos guardado",
+    "itemSaved": "Artículo {{name}} guardado",
+    "categorySaved": "Categoría {{name}} guardada",
+    "supplierSaved": "Proveedor {{name}} guardado",
+    "storeSaved": "Almacén {{name}} guardado",
+    "unableGenerateWasteNumber": "No se pudo generar el siguiente número de desperdicio",
+    "unableGenerateIssueNumber": "No se pudo generar el siguiente número de salida",
+    "unableGenerateIssueReturnNumber": "No se pudo generar el siguiente número de devolución de salida",
+    "unableGenerateInvoiceNumber": "No se pudo generar el siguiente número de factura",
+    "unableGenerateReturnNumber": "No se pudo generar el siguiente número de devolución",
+    "unableGeneratePoNumber": "No se pudo generar el siguiente número de OC",
+    "itemsExceedQuantity": "Uno o más artículos superan la cantidad disponible"
+  },
+  "delivery": {
+    "settingsSaved": "Configuración de entrega guardada correctamente",
+    "settingsLoadFailed": "Error al cargar la configuración de entrega",
+    "settingsSaveFailed": "Error al guardar la configuración de entrega",
+    "mapAreasSaved": "Áreas del mapa guardadas correctamente",
+    "mapAreasSaveFailed": "Error al guardar las áreas del mapa",
+    "mapAreasLoadFailed": "Error al cargar las áreas del mapa",
+    "shapeTooSmall": "La forma es demasiado pequeña. Dibuje un área más grande.",
+    "rectangleTooSmall": "El rectángulo es demasiado pequeño. Dibuje un área más grande.",
+    "circleTooSmall": "El círculo es demasiado pequeño. Dibuje un radio más grande.",
+    "polygonTooSmall": "El polígono es demasiado pequeño. Dibuje un contorno más grande.",
+    "fetchRidersFailed": "Error al obtener los repartidores",
+    "acceptFailed": "Error al aceptar el pedido",
+    "rejectFailed": "Error al rechazar el pedido",
+    "sendFailed": "Error al enviar el pedido",
+    "attachRiderFailed": "Error al asignar el repartidor"
+  },
+  "reports": {
+    "mapAreasSaveFailed": "Error al guardar las áreas del mapa"
+  },
+  "kitchen": {
+    "recallFailed": "Error al recuperar el pedido"
+  },
+  "closing": {
+    "loadFailed": "Error al cargar el cierre",
+    "alreadyClosed": "Este ciclo ya está cerrado.",
+    "openOrders": "Hay pedidos abiertos. Ciérrelos primero.",
+    "completed": "¡Cierre completado correctamente!",
+    "savedDraft": "¡Cierre guardado como borrador correctamente!",
+    "saveFailed": "Error al guardar el cierre",
+    "notFound": "No se encontró cierre para este ciclo.",
+    "reopened": "Cierre reabierto en modo edición.",
+    "reopenFailed": "Error al reabrir el cierre",
+    "printFailed": "Error al imprimir el cierre"
+  },
+  "summary": {
+    "noProductMix": "No se encontraron artículos para la mezcla de productos.",
+    "noTimeEntries": "No se encontraron registros de tiempo completados para esta fecha.",
+    "noServerSales": "No se encontraron datos de ventas del servidor para esta fecha."
+  },
+  "clock": {
+    "noActiveEntry": "No se encontró registro de tiempo activo",
+    "loadEntryFailed": "Error al cargar el registro de tiempo",
+    "loadSaleSummaryFailed": "Error al cargar el resumen de ventas",
+    "clockedOut": "Salida registrada correctamente",
+    "clockOutFailed": "Error al fichar la salida"
+  },
+  "tipDistribution": {
+    "selectShiftAndDate": "Seleccione el turno y la fecha",
+    "unableToDeriveRange": "No se pudo determinar el rango de tiempo del turno",
+    "saved": "Distribución de propinas guardada"
+  },
+  "admin": {
+    "dishSaved": "Plato {{name}} guardado",
+    "menuSaved": "Menú {{name}} guardado",
+    "categorySaved": "Categoría {{name}} guardada",
+    "couponSaved": "Cupón {{code}} guardado",
+    "discountSaved": "Descuento {{name}} guardado",
+    "extraSaved": "Extra {{name}} guardado",
+    "floorSaved": "Piso {{name}} guardado",
+    "kitchenSaved": "Cocina {{name}} guardada",
+    "modifierGroupSaved": "Grupo de modificadores {{name}} guardado",
+    "orderTypeSaved": "Tipo de pedido {{name}} guardado",
+    "paymentTypeSaved": "Tipo de pago {{name}} guardado",
+    "printerSaved": "Impresora {{name}} guardada",
+    "printSettingsSaved": "Configuración de impresión guardada",
+    "roleSaved": "Rol {{name}} guardado",
+    "shiftSaved": "Turno {{name}} guardado",
+    "tableSaved": "Mesa {{name}} guardada",
+    "taxSaved": "Impuesto {{name}} guardado",
+    "userSaved": "Usuario {{name}} guardado",
+    "workflowSaved": "Flujo de trabajo {{name}} guardado",
+    "tipDistributionSaved": "Distribución de propinas guardada",
+    "categoriesBulkUpdated": "{{count}} categorías actualizadas",
+    "dishesBulkUpdated": "{{count}} platos actualizados",
+    "tablesBulkUpdated": "{{count}} mesas actualizadas",
+    "failedReadPhoto": "Error al leer la foto",
+    "noCategoriesSelected": "No hay categorías seleccionadas",
+    "noDishesSelected": "No hay platos seleccionados",
+    "noTablesSelected": "No hay mesas seleccionadas",
+    "noTablesToArrange": "No se encontraron mesas para organizar",
+    "selectAtLeastOneTable": "Seleccione al menos una mesa",
+    "tablesArranged": "{{count}} mesas organizadas dentro de la cuadrícula",
+    "tablesUpdated": "{{count}} mesas actualizadas",
+    "menuNotFound": "Menú no encontrado",
+    "menuItemsSaved": "Artículos del menú guardados",
+    "invalidFactor": "Ingrese un factor válido",
+    "selectCategoriesRequired": "Seleccione al menos una categoría",
+    "menuItemsUpdated": "{{count}} artículo(s) actualizado(s)",
+    "invalidCategories": "Las categorías no son válidas",
+    "passwordRequired": "La contraseña es obligatoria para un usuario nuevo"
+  },
+  "settingsDelete": {
+    "deactivated": "{{entity}} está en uso y fue desactivado.",
+    "deleted": "{{entity}} eliminado correctamente.",
+    "failed": "Error al eliminar {{entity}}."
+  }
+}

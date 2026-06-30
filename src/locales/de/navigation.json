@@ -1,0 +1,33 @@
+{
+  "sidebar": {
+    "menu": "Speisekarte",
+    "orders": "Bestellungen",
+    "summary": "Zusammenfassung",
+    "kitchen": "Küche",
+    "delivery": "Lieferung",
+    "closing": "Tagesabschluss",
+    "inventory": "Lager",
+    "manage": "Verwalten",
+    "reports": "Berichte",
+    "tipDist": "Trinkgeld",
+    "settings": "Einstellungen",
+    "clock": "Zeiterfassung",
+    "accounts": "Accounts"
+  },
+  "modules": {
+    "Menu": "Speisekarte",
+    "Orders": "Bestellungen",
+    "Summary": "Zusammenfassung",
+    "Reports": "Berichte",
+    "Closing": "Tagesabschluss",
+    "Kitchen": "Küche",
+    "Delivery": "Lieferung",
+    "Admin": "Verwaltung",
+    "Riders": "Fahrer",
+    "Tips": "Trinkgeldverteilung",
+    "Inventory": "Lager",
+    "Settings": "Einstellungen",
+    "Accounts": "Accounts"
+  },
+  "authenticateToAccess": "Authentifizierung erforderlich für {{module}}"
+}
