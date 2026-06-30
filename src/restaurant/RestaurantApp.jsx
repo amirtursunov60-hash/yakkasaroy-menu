@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { UtensilsCrossed, Receipt, LayoutDashboard, ChefHat, Bike, DoorClosed, Warehouse, Settings, BarChart3, Coins, Calculator } from "lucide-react";
 import { ThemeProvider, useTheme } from "@theme";
+import { OrdersSection } from "./sections/OrdersSection.jsx";
 
 // ============================================================
 //  РЕСТОРАН-МОДУЛЬ (новый) — каркас в стиле Яккасарой Финанс.
@@ -92,6 +93,8 @@ function Shell() {
           onLoad={pushMenuTheme}
           style={{ flex: 1, width: "100%", border: "none", display: "block", minHeight: "calc(100dvh - 80px)" }}
         />
+      ) : active === "orders" ? (
+        <main style={{ flex: 1 }}><OrdersSection /></main>
       ) : (
         <main style={{ flex: 1, padding: isMobile ? 16 : 28 }}>
           <div style={{
