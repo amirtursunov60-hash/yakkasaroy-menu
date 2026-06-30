@@ -103,7 +103,9 @@ export default function RestaurantApp() {
     const onMsg = (e) => {
       const d = e.data;
       if (d && d.source === "yk-finance" && (d.theme || d.lang)) {
-        setExt({ theme: d.theme, lang: d.lang });
+        // сохраняем ранее полученные значения: сообщение только с lang не должно
+        // обнулять theme (и наоборот) — Финанс может слать поля по отдельности
+        setExt((prev) => ({ theme: d.theme ?? prev.theme, lang: d.lang ?? prev.lang }));
       }
     };
     window.addEventListener("message", onMsg);
