@@ -6,66 +6,91 @@ import { ThemeProvider, useTheme } from "@theme";
 //  Живёт в репо pos-and-menu, деплоится в тот же Vercel-проект
 //  (yakkasaroy-menu.vercel.app), открывается по маршруту #/restaurant
 //  и встраивается во вкладку «Ресторан» Финанса через iframe.
-//  Дизайн берётся из общего пакета @yakkasaroy/theme.
+//  Навигация — ГОРИЗОНТАЛЬНАЯ, вкладки повторяют оригинал restaurant-pos.
 // ============================================================
 
-// Планируемые разделы (по SUPABASE_SCHEMA_PROPOSAL.md). Пока заглушки —
-// наполняем по дорожной карте на общем Supabase.
-const SECTIONS = [
-  { icon: "🧾", title: "Заказы", desc: "Столы, позиции, оплаты, скидки" },
-  { icon: "🪑", title: "Столы / Зал", desc: "План зала, статусы столов" },
-  { icon: "🍽️", title: "Меню", desc: "Блюда, категории, модификаторы" },
-  { icon: "📦", title: "Склад", desc: "Остатки-леджер, закупки, списания" },
-  { icon: "📋", title: "Техкарты", desc: "Списание по рецептуре, фудкост" },
-  { icon: "🔥", title: "Кухня · KDS", desc: "Маршрут позиций по станциям" },
-  { icon: "🍲", title: "Буфет / туйхона", desc: "Себестоимость на гостя" },
-  { icon: "⏱️", title: "Смены", desc: "Табель, чаевые, закрытие дня" },
+// Вкладки 1:1 с интерфейсом оригинала (см. скриншот заказчика).
+const TABS = [
+  { key: "menu",      icon: "🍽️", label: "Меню" },
+  { key: "orders",    icon: "🧾", label: "Заказы" },
+  { key: "summary",   icon: "📋", label: "Сводка" },
+  { key: "kitchen",   icon: "🔥", label: "Кухня" },
+  { key: "delivery",  icon: "🛵", label: "Доставка" },
+  { key: "shift",     icon: "🏪", label: "Закрытие смены" },
+  { key: "stock",     icon: "🏬", label: "Склад" },
+  { key: "admin",     icon: "⚙️", label: "Управление" },
+  { key: "reports",   icon: "📈", label: "Отчёты" },
+  { key: "tips",      icon: "💰", label: "Распр. чаевых" },
+  { key: "accounts",  icon: "🧮", label: "Accounts" },
 ];
 
 function Shell() {
   const { C, isMobile } = useTheme();
+  const [active, setActive] = useState(TABS[0].key);
+  const current = TABS.find((t) => t.key === active) || TABS[0];
 
   return (
-    <div style={{ minHeight: "100dvh", background: C.bg, color: C.text, padding: isMobile ? 14 : 28 }}>
+    <div style={{ minHeight: "100dvh", background: C.pageGrad, color: C.text, display: "flex", flexDirection: "column" }}>
       {/* Шапка */}
-      <header style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap", marginBottom: isMobile ? 16 : 24 }}>
+      <header style={{
+        display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap",
+        padding: isMobile ? "12px 12px 0" : "20px 24px 0",
+      }}>
         <div style={{
-          width: 44, height: 44, borderRadius: 12, display: "grid", placeItems: "center",
-          background: C.brandSoft || C.panel, fontSize: 24,
+          width: 38, height: 38, borderRadius: 11, display: "grid", placeItems: "center",
+          background: C.panel2, fontSize: 20,
         }}>🍽️</div>
         <div>
-          <h1 style={{ margin: 0, fontSize: isMobile ? 20 : 26, fontWeight: 800, color: C.text }}>Ресторан</h1>
-          <div style={{ fontSize: 13, color: C.textDim }}>Модуль в разработке · на общем Supabase Яккасарой</div>
+          <h1 style={{ margin: 0, fontSize: isMobile ? 18 : 22, fontWeight: 800, color: C.text }}>Ресторан</h1>
+          <div style={{ fontSize: 12, color: C.sub }}>Модуль в разработке · общий Supabase Яккасарой</div>
         </div>
-        <span style={{
-          marginLeft: "auto", fontSize: 12, fontWeight: 700, padding: "6px 12px", borderRadius: 999,
-          background: C.warningSoft || C.panel, color: C.warning || C.text, border: `1px solid ${C.line}`,
-        }}>v0 · каркас</span>
       </header>
 
-      {/* Карточки разделов */}
-      <div style={{
-        display: "grid", gap: isMobile ? 10 : 14,
-        gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fill, minmax(240px, 1fr))",
+      {/* ГОРИЗОНТАЛЬНАЯ лента вкладок (скролл по горизонтали на телефоне) */}
+      <nav style={{
+        display: "flex", gap: 8, overflowX: "auto", whiteSpace: "nowrap",
+        padding: isMobile ? "12px" : "16px 24px",
+        borderBottom: `1px solid ${C.line}`,
+        WebkitOverflowScrolling: "touch", scrollbarWidth: "thin",
       }}>
-        {SECTIONS.map((s) => (
-          <div key={s.title} style={{
-            background: C.panel, border: `1px solid ${C.line}`, borderRadius: 16,
-            padding: 16, display: "flex", gap: 12, alignItems: "flex-start",
-          }}>
-            <div style={{ fontSize: 26, lineHeight: 1 }}>{s.icon}</div>
-            <div style={{ minWidth: 0 }}>
-              <div style={{ fontWeight: 700, color: C.text, marginBottom: 4 }}>{s.title}</div>
-              <div style={{ fontSize: 13, color: C.textDim }}>{s.desc}</div>
-              <div style={{ fontSize: 11, color: C.textDim, marginTop: 8, opacity: 0.7 }}>скоро</div>
-            </div>
-          </div>
-        ))}
-      </div>
+        {TABS.map((t) => {
+          const on = t.key === active;
+          return (
+            <button
+              key={t.key}
+              onClick={() => setActive(t.key)}
+              style={{
+                flexShrink: 0, display: "inline-flex", alignItems: "center", gap: 7,
+                padding: "9px 14px", borderRadius: 999, cursor: "pointer",
+                fontSize: 14, fontWeight: on ? 700 : 500,
+                border: `1px solid ${on ? C.green : C.line}`,
+                background: on ? C.green : "transparent",
+                color: on ? C.onAccent : C.sub,
+                transition: "all .15s ease",
+              }}
+            >
+              <span style={{ fontSize: 16 }}>{t.icon}</span>{t.label}
+            </button>
+          );
+        })}
+      </nav>
 
-      <footer style={{ marginTop: 28, fontSize: 12, color: C.textDim }}>
-        Дизайн и правила — Яккасарой Финанс (пакет <code>@yakkasaroy/theme</code>). Тема синхронизируется с Финансом.
-      </footer>
+      {/* Контент выбранной вкладки (пока заглушка) */}
+      <main style={{ flex: 1, padding: isMobile ? 16 : 28 }}>
+        <div style={{
+          background: C.panel, border: `1px solid ${C.line}`, borderRadius: 16,
+          padding: isMobile ? 20 : 40, textAlign: "center", maxWidth: 560, margin: "0 auto",
+        }}>
+          <div style={{ fontSize: 44, marginBottom: 12 }}>{current.icon}</div>
+          <h2 style={{ margin: "0 0 8px", fontSize: 22, fontWeight: 800, color: C.text }}>{current.label}</h2>
+          <p style={{ margin: 0, color: C.sub, fontSize: 14 }}>Раздел в разработке. Подключаем к общему Supabase по дорожной карте.</p>
+          <div style={{
+            marginTop: 16, display: "inline-block", fontSize: 12, fontWeight: 700,
+            padding: "6px 12px", borderRadius: 999,
+            background: C.panel2, color: C.warning, border: `1px solid ${C.line}`,
+          }}>скоро</div>
+        </div>
+      </main>
     </div>
   );
 }
@@ -82,7 +107,6 @@ export default function RestaurantApp() {
       }
     };
     window.addEventListener("message", onMsg);
-    // сообщаем родителю, что готовы принять тему
     try { window.parent?.postMessage({ source: "yk-restaurant", ready: true }, "*"); } catch { /* нет родителя */ }
     return () => window.removeEventListener("message", onMsg);
   }, []);
