@@ -858,6 +858,19 @@ function Checkout({ cart, onClose, onDone }) {
 
 export default function App() {
   const [theme, setTheme] = useState("dark"); // тема меню: dark | light | dim
+  // Когда меню открыто внутри Ресторан-модуля (iframe, ?embed=1) — режим (свет/тьма)
+  // задаёт Финанс по postMessage, а собственный переключатель меню скрываем.
+  const embedded = typeof window !== "undefined" && new URLSearchParams(window.location.search).get("embed") === "1";
+  useEffect(() => {
+    if (!embedded) return;
+    const onMsg = (e) => {
+      const d = e.data;
+      if (d && d.source === "yk-finance-theme" && d.theme) setTheme(d.theme === "light" ? "light" : "dark");
+    };
+    window.addEventListener("message", onMsg);
+    try { window.parent?.postMessage({ source: "yk-menu", ready: true }, "*"); } catch { /* нет родителя */ }
+    return () => window.removeEventListener("message", onMsg);
+  }, [embedded]);
   const [active, setActive] = useState("кофе");
   const [cart, setCart] = useState([]);
   const [detail, setDetail] = useState(null);
@@ -907,9 +920,11 @@ export default function App() {
             </svg>
           </div>
           <div className="brandTxt"><strong>ЯККАСАРОЙ</strong><span>Family · откроемся в 9:30</span></div>
-          <div className="themeSwitch">
-            <ThemeSwitcher value={theme} onValueChange={setTheme} />
-          </div>
+          {!embedded && (
+            <div className="themeSwitch">
+              <ThemeSwitcher value={theme} onValueChange={setTheme} />
+            </div>
+          )}
         </div>
       </header>
 

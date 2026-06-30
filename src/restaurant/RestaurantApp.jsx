@@ -26,9 +26,21 @@ const TABS = [
 ];
 
 function Shell() {
-  const { C, st, isMobile } = useTheme();
+  const { C, st, isMobile, theme } = useTheme();
   const [active, setActive] = useState(TABS[0].key);
   const current = TABS.find((t) => t.key === active) || TABS[0];
+
+  // Передаём режим (свет/тьма) Финанса в меню-iframe, чтобы тема совпадала.
+  const menuFrameRef = useRef(null);
+  const pushMenuTheme = () => {
+    try { menuFrameRef.current?.contentWindow?.postMessage({ source: "yk-finance-theme", theme }, "*"); } catch { /* iframe не готов */ }
+  };
+  useEffect(() => { pushMenuTheme(); }, [theme]);
+  useEffect(() => {
+    const onMsg = (e) => { if (e.data && e.data.source === "yk-menu" && e.data.ready) pushMenuTheme(); };
+    window.addEventListener("message", onMsg);
+    return () => window.removeEventListener("message", onMsg);
+  }, [theme]);
 
   // «Жидкая» стеклянная пилюля под активной вкладкой (как modbar в Финансе):
   // измеряем позицию/ширину активной вкладки и анимированно сдвигаем пилюлю.
@@ -74,8 +86,10 @@ function Shell() {
           Остальные вкладки — заглушки до подключения Supabase. */}
       {active === "menu" ? (
         <iframe
+          ref={menuFrameRef}
           title="Меню Яккасарой"
-          src="/"
+          src="/?embed=1"
+          onLoad={pushMenuTheme}
           style={{ flex: 1, width: "100%", border: "none", display: "block", minHeight: "calc(100dvh - 80px)" }}
         />
       ) : (
