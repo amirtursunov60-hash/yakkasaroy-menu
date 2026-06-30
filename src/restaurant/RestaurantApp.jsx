@@ -31,21 +31,8 @@ function Shell() {
 
   return (
     <div style={{ minHeight: "100dvh", background: C.pageGrad, color: C.text, display: "flex", flexDirection: "column" }}>
-      {/* Шапка */}
-      <header style={{
-        display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap",
-        padding: isMobile ? "12px 12px 0" : "20px 24px 0",
-      }}>
-        <div style={{
-          width: 38, height: 38, borderRadius: 11, display: "grid", placeItems: "center",
-          background: C.panel2, fontSize: 20,
-        }}>🍽️</div>
-        <div>
-          <h1 style={{ margin: 0, fontSize: isMobile ? 18 : 22, fontWeight: 800, color: C.text }}>Ресторан</h1>
-          <div style={{ fontSize: 12, color: C.sub }}>Модуль в разработке · общий Supabase Яккасарой</div>
-        </div>
-      </header>
-
+      {/* Шапка модуля не нужна — контекст «Ресторан» даёт сама вкладка Финанса.
+          Сразу показываем горизонтальную ленту вкладок. */}
       {/* ГОРИЗОНТАЛЬНАЯ лента вкладок (скролл по горизонтали на телефоне) */}
       <nav style={{
         display: "flex", gap: 8, overflowX: "auto", whiteSpace: "nowrap",
