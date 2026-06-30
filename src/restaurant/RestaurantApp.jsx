@@ -69,22 +69,32 @@ function Shell() {
         })}
       </nav>
 
-      {/* Контент выбранной вкладки (пока заглушка) */}
-      <main style={{ flex: 1, padding: isMobile ? 16 : 28 }}>
-        <div style={{
-          background: C.panel, border: `1px solid ${C.line}`, borderRadius: 16,
-          padding: isMobile ? 20 : 40, textAlign: "center", maxWidth: 560, margin: "0 auto",
-        }}>
-          <current.icon size={44} strokeWidth={1.5} color={C.green} style={{ margin: "0 auto 12px", display: "block" }} />
-          <h2 style={{ margin: "0 0 8px", fontSize: 22, fontWeight: 800, color: C.text }}>{current.label}</h2>
-          <p style={{ margin: 0, color: C.sub, fontSize: 14 }}>Раздел в разработке. Подключаем к общему Supabase по дорожной карте.</p>
+      {/* Контент выбранной вкладки. «Меню» — готовый экран меню (корень приложения)
+          через iframe (у меню есть fixed/sticky-элементы — изолируем их от ленты вкладок).
+          Остальные вкладки — заглушки до подключения Supabase. */}
+      {active === "menu" ? (
+        <iframe
+          title="Меню Яккасарой"
+          src="/"
+          style={{ flex: 1, width: "100%", border: "none", display: "block", minHeight: "calc(100dvh - 80px)" }}
+        />
+      ) : (
+        <main style={{ flex: 1, padding: isMobile ? 16 : 28 }}>
           <div style={{
-            marginTop: 16, display: "inline-block", fontSize: 12, fontWeight: 700,
-            padding: "6px 12px", borderRadius: 999,
-            background: C.panel2, color: C.warning, border: `1px solid ${C.line}`,
-          }}>скоро</div>
-        </div>
-      </main>
+            background: C.panel, border: `1px solid ${C.line}`, borderRadius: 16,
+            padding: isMobile ? 20 : 40, textAlign: "center", maxWidth: 560, margin: "0 auto",
+          }}>
+            <current.icon size={44} strokeWidth={1.5} color={C.green} style={{ margin: "0 auto 12px", display: "block" }} />
+            <h2 style={{ margin: "0 0 8px", fontSize: 22, fontWeight: 800, color: C.text }}>{current.label}</h2>
+            <p style={{ margin: 0, color: C.sub, fontSize: 14 }}>Раздел в разработке. Подключаем к общему Supabase по дорожной карте.</p>
+            <div style={{
+              marginTop: 16, display: "inline-block", fontSize: 12, fontWeight: 700,
+              padding: "6px 12px", borderRadius: 999,
+              background: C.panel2, color: C.warning, border: `1px solid ${C.line}`,
+            }}>скоро</div>
+          </div>
+        </main>
+      )}
     </div>
   );
 }
