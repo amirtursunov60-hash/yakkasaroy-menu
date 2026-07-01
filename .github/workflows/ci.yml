@@ -1,0 +1,29 @@
+# CI-гейт: сборка обязана проходить на каждом PR в main.
+# Тестов и линтера в проекте пока нет — сборка Vite и есть ворота.
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Установка зависимостей
+        run: npm ci
+      - name: Сборка (Vite)
+        run: npm run build
